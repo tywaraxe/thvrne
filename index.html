@@ -11,9 +11,9 @@
     :root {
       --bg-dark: #0A090D;
       --bg-card: #131118;
-      --bg-card-hover: #1C1924;
+      --bg-card-hover: #191b24;
       --accent-lavender: #E2E4F6;
-      --accent-violet: #A89EC9;
+      --accent-violet: #9ab2ff;
       --accent-obsidian: #26242B;
       --accent-silver: #B7B9C7;
       --accent-rose: #F5F4FA;
@@ -75,7 +75,7 @@
 
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       list-style: none;
       font-family: var(--font-sans);
       font-size: 0.85rem;
@@ -134,6 +134,14 @@
       background: linear-gradient(180deg, var(--accent-rose), var(--accent-silver));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      cursor: pointer;
+      user-select: none;
+      display: inline-block;
+      transition: filter 0.3s ease;
+    }
+
+    .hero-title:active {
+      transform: scale(0.98);
     }
 
     .hero-image-wrapper {
@@ -190,6 +198,42 @@
       font-style: italic;
       font-size: 1.25rem;
       color: var(--accent-violet);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 7rem;
+    }
+
+    .spec-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .spec-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-violet);
+    }
+
+    .spec-label {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--accent-violet);
+      margin-bottom: 0.5rem;
+    }
+
+    .spec-value {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      color: var(--accent-lavender);
     }
 
     .palette-grid {
@@ -369,6 +413,55 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+    }
+
+    .art-tag-banner {
+      max-width: 500px;
+      margin: 1.5rem auto 3rem auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 99px;
+      padding: 0.75rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .art-tag-banner:hover {
+      border-color: var(--accent-violet);
+      transform: translateY(-2px);
+    }
+
+    .art-tag-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .art-tag-label {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--accent-violet);
+    }
+
+    .art-tag-name {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      color: var(--accent-lavender);
+    }
+
+    .art-tag-copy-btn {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent-silver);
+      border: 1px solid var(--border-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
     }
 
     .art-img-box img {
@@ -672,7 +765,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Mobile Responsive Styles */
     @media (max-width: 900px) {
       .container {
         padding-left: 1.25rem;
@@ -709,6 +801,12 @@
 
       .hero-tag {
         font-size: 1.2rem;
+      }
+
+      .specs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 4rem;
       }
 
       .palette-grid {
@@ -784,6 +882,10 @@
         letter-spacing: 2px;
       }
 
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+
       .swatch-preview {
         height: 90px;
       }
@@ -797,10 +899,12 @@
     <div class="container nav-wrapper">
       <div class="logo">THVRNE</div>
       <ul class="nav-links">
+        <li><a href="#specs">Bio</a></li>
         <li><a href="#palette">Palette</a></li>
         <li><a href="#models">Models</a></li>
         <li><a href="#refsheet">Ref Sheet</a></li>
         <li><a href="#fanart">Fan Art</a></li>
+        <li><a href="#memes">Memes</a></li>
         <li><a href="#archives">Broadcasts</a></li>
       </ul>
       <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge">
@@ -814,10 +918,35 @@
     <section class="hero">
       <div>
         <div class="hero-tag">a delicate ball-jointed doll brought to 'life'.</div>
-        <h1 class="hero-title">THVRNE</h1>
+        <h1 class="hero-title" id="toggleNameTitle" title="Click to toggle hidden name">THVRNE</h1>
       </div>
       <div class="hero-image-wrapper">
         <img src="main.png" alt="THVRNE VTuber Model" class="hero-img zoomable">
+      </div>
+    </section>
+
+    <section id="specs">
+      <div class="section-header">
+        <h2 class="section-title">Specifications</h2>
+        <div class="section-subtitle">Character details & attributes</div>
+      </div>
+      <div class="specs-grid">
+        <div class="spec-card">
+          <div class="spec-label">Placeholder</div>
+          <div class="spec-value">Unknown</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Placeholder</div>
+          <div class="spec-value">Unknown</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Placeholder</div>
+          <div class="spec-value">Unknown</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">Likes</div>
+          <div class="spec-value">Unknown</div>
+        </div>
       </div>
     </section>
 
@@ -909,15 +1038,23 @@
           <img src="fullref.png" alt="THVRNE Full Reference Sheet" class="refsheet-img zoomable">
         </div>
         <div class="art-info">
-            <div class="art-artist">trinittoluene</div>
-          </div>
+          <div class="art-artist">ラテ🥛ིིྀ / trinittoluene</div>
+          <div class="art-handle">@satera723</div>
+        </div>
       </div>
     </section>
 
     <section id="fanart">
       <div class="section-header">
         <h2 class="section-title">Velvet Atelier</h2>
-        <div class="section-subtitle">art gallery</div>
+        <div class="section-subtitle">Art gallery</div>
+        <div class="art-tag-banner" onclick="copyTag('#GardenofThorne')">
+          <div class="art-tag-info">
+            <span class="art-tag-label">Art Tag //🖊️</span>
+            <span class="art-tag-name">#GardenofThorne</span>
+          </div>
+          <span class="art-tag-copy-btn">Copy Tag</span>
+        </div>
       </div>
       <div class="fanart-grid">
         <div class="art-card">
@@ -969,6 +1106,7 @@
             <div class="art-handle">@angeloftheaxis</div>
           </div>
         </div>
+
         <div class="art-card">
           <div class="art-img-box">
             <img src="15coro_aaa.png" alt="" class="zoomable">
@@ -978,6 +1116,7 @@
             <div class="art-handle">@15coro_aaa</div>
           </div>
         </div>
+
         <div class="art-card">
           <div class="art-img-box">
             <img src="IMG_6330.gif" alt="" class="zoomable">
@@ -987,7 +1126,6 @@
             <div class="art-handle">@Placeholder</div>
           </div>
         </div>
-        
       </div>
     </section>
 
@@ -1208,7 +1346,7 @@
           </div>
           <div class="vod-details">
             <div class="vod-tag">Recent Stream</div>
-            <h3 class="vod-title">STRAIGHT UP PEAKIN IT</h3>
+            <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
             <p class="vod-desc">PEAK</p>
           </div>
         </a>
@@ -1250,16 +1388,56 @@
 
   <script>
     let toastTimeout;
-    function copyHex(hex) {
-      navigator.clipboard.writeText(hex);
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+        } catch (error) {
+          console.error("Copy failed", error);
+        }
+        document.body.removeChild(textArea);
+      }
+    }
+
+    function showToast(text) {
       const toast = document.getElementById('copy-toast');
-      toast.textContent = `Copied ${hex} to clipboard!`;
+      toast.textContent = text;
       toast.classList.add('show');
       
       clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
       }, 2000);
+    }
+
+    function copyHex(hex) {
+      copyToClipboard(hex);
+      showToast(`Copied ${hex} to clipboard!`);
+    }
+
+    function copyTag(tag) {
+      copyToClipboard(tag);
+      showToast(`Copied ${tag} to clipboard!`);
+    }
+
+    const titleElement = document.getElementById('toggleNameTitle');
+    const primaryName = "THVRNE";
+    const hiddenName = "THORNE";
+
+    if (titleElement) {
+      titleElement.addEventListener('click', () => {
+        titleElement.textContent = titleElement.textContent === primaryName ? hiddenName : primaryName;
+      });
     }
 
     const lightbox = document.getElementById('lightbox');
@@ -1273,15 +1451,19 @@
       }
     });
 
-    lightboxClose.addEventListener('click', () => {
-      lightbox.classList.remove('active');
-    });
-
-    lightbox.addEventListener('click', (e) => {
-      if (e.target !== lightboxImg) {
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', () => {
         lightbox.classList.remove('active');
-      }
-    });
+      });
+    }
+
+    if (lightbox) {
+      lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg && e.target !== lightboxClose) {
+          lightbox.classList.remove('active');
+        }
+      });
+    }
   </script>
 </body>
 </html>
