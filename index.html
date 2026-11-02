@@ -287,7 +287,6 @@
       font-size: 0.95rem;
     }
 
-    /* Smaller, centered Reference Sheet Box */
     .refsheet-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -332,7 +331,6 @@
       transform: scale(1.02);
     }
 
-    /* Dense grid layout with support for landscape wide spanning */
     .fanart-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -350,7 +348,6 @@
       transition: border-color 0.3s ease, transform 0.3s ease;
     }
 
-    /* Spans 2 columns for landscape items */
     .art-card.landscape {
       grid-column: span 2;
     }
@@ -360,7 +357,6 @@
       transform: translateY(-4px);
     }
 
-    /* Allows full uncropped heights for portraits and GIFs */
     .art-img-box {
       width: 100%;
       min-width: 0;
@@ -405,7 +401,6 @@
       color: var(--accent-silver);
     }
 
-    /* Meme artwork gallery */
     .meme-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -461,92 +456,113 @@
     }
 
     .vod-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin-bottom: 7rem;
-  }
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 7rem;
+    }
 
-  .vod-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    display: flex;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.3s ease, transform 0.3s ease;
-  }
+    .vod-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      display: flex;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
 
-  .vod-card:hover {
-    border-color: var(--accent-violet);
-    transform: translateY(-4px);
-  }
+    .vod-card:hover {
+      border-color: var(--accent-violet);
+      transform: translateY(-4px);
+    }
 
-  /* Fixed 16:9 widescreen thumbnail box */
-  .vod-thumb {
-    width: 45%;
-    flex-shrink: 0;
-    aspect-ratio: 16 / 9;
-    background: var(--accent-obsidian);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .vod-thumb {
+      width: 45%;
+      flex-shrink: 0;
+      aspect-ratio: 16 / 9;
+      background: var(--accent-obsidian);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  .vod-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
+    .vod-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
 
-  .vod-card:hover .vod-thumb img {
-    transform: scale(1.05);
-  }
+    .vod-card:hover .vod-thumb img {
+      transform: scale(1.05);
+    }
 
-  .vod-play-btn {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: rgba(10, 9, 13, 0.75);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease, transform 0.3s ease;
-  }
+    .vod-play-btn {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: rgba(10, 9, 13, 0.75);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
 
-  .vod-play-btn::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 6px 0 6px 10px;
-    border-color: transparent transparent transparent var(--accent-lavender);
-    margin-left: 2px;
-  }
+    .vod-play-btn::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 6px 0 6px 10px;
+      border-color: transparent transparent transparent var(--accent-lavender);
+      margin-left: 2px;
+    }
 
-  .vod-card:hover .vod-play-btn {
-    background: var(--accent-violet);
-    transform: scale(1.1);
-  }
+    .vod-card:hover .vod-play-btn {
+      background: var(--accent-violet);
+      transform: scale(1.1);
+    }
 
-  .vod-card:hover .vod-play-btn::after {
-    border-color: transparent transparent transparent #0A090D;
-  }
+    .vod-card:hover .vod-play-btn::after {
+      border-color: transparent transparent transparent #0A090D;
+    }
 
-  .vod-details {
-    padding: 1.5rem;
-    width: 55%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+    .vod-details {
+      padding: 1.5rem;
+      width: 55%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .vod-tag {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--accent-violet);
+      margin-bottom: 0.4rem;
+    }
+
+    .vod-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .vod-desc {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--accent-silver);
+    }
 
     .quote-banner {
       border-top: 1px solid var(--border-color);
@@ -591,7 +607,6 @@
       color: var(--accent-silver);
     }
 
-    /* Lightbox Modal for Image Zoom */
     .lightbox {
       position: fixed;
       top: 0;
@@ -632,7 +647,6 @@
       font-family: var(--font-heading);
     }
 
-    /* Custom Toast Notification Pop-up */
     .copy-toast {
       position: fixed;
       bottom: 2.5rem;
@@ -658,32 +672,120 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Mobile Responsive Styles */
     @media (max-width: 900px) {
-      .hero, .vod-grid, .palette-grid, .models-grid, .fanart-grid, .meme-grid {
-        grid-template-columns: 1fr;
+      .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
       }
+
+      header {
+        padding: 1rem 0;
+      }
+
+      .nav-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 3rem 0;
+        text-align: center;
+        gap: 2rem;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+        letter-spacing: 4px;
+      }
+
+      .hero-tag {
+        font-size: 1.2rem;
+      }
+
+      .palette-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 4rem;
+      }
+
+      .models-grid, 
+      .fanart-grid, 
+      .meme-grid, 
+      .vod-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 4rem;
+      }
+
       .art-card.landscape {
         grid-column: span 1;
       }
-      .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
+
+      .refsheet-card {
+        padding: 1rem;
+        margin-bottom: 4rem;
       }
-      .hero-img {
-        max-height: 75vh;
+
+      .vod-card {
+        flex-direction: column;
       }
-      .model-img-wrapper {
-        height: min(380px, 70vw);
+
+      .vod-thumb {
+        width: 100%;
+      }
+
+      .vod-details {
+        width: 100%;
+        padding: 1.25rem;
+      }
+
+      .quote-banner {
+        padding: 3rem 0;
+        margin-bottom: 4rem;
+      }
+
+      .quote-text {
+        font-size: 1.5rem;
+        padding: 0 1rem;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 1.25rem;
+      }
+
+      .lightbox-close {
+        top: 1rem;
+        right: 1.5rem;
       }
     }
 
     @media (max-width: 520px) {
+      .section-header {
+        margin-bottom: 2.5rem;
+      }
+
       .section-title {
         font-size: 1.7rem;
         letter-spacing: 2px;
       }
-      .art-info {
-        padding: 1rem;
+
+      .hero-title {
+        font-size: 2.4rem;
+        letter-spacing: 2px;
+      }
+
+      .swatch-preview {
+        height: 90px;
       }
     }
   </style>
@@ -815,7 +917,6 @@
         <div class="section-subtitle">art gallery</div>
       </div>
       <div class="fanart-grid">
-        <!-- Portrait Card (Full height uncropped) -->
         <div class="art-card">
           <div class="art-img-box">
             <img src="satera723.png" alt="" class="zoomable">
@@ -826,7 +927,6 @@
           </div>
         </div>
 
-        <!-- Landscape Card (Wider/Bigger, class="landscape") -->
         <div class="art-card landscape">
           <div class="art-img-box">
             <img src="artwork1.png" alt="" class="zoomable">
@@ -837,7 +937,6 @@
           </div>
         </div>
 
-        <!-- Landscape Card (Wider/Bigger, class="landscape") -->
         <div class="art-card landscape">
           <div class="art-img-box">
             <img src="3900352-2.png" alt="" class="zoomable">
@@ -848,7 +947,6 @@
           </div>
         </div>
 
-        <!-- Portrait Card -->
         <div class="art-card">
           <div class="art-img-box">
             <img src="tsuyutya.png" alt="" class="zoomable">
@@ -859,7 +957,6 @@
           </div>
         </div>
 
-        <!-- Portrait Card -->
         <div class="art-card">
           <div class="art-img-box">
             <img src="CD3BD835.jpg" alt="" class="zoomable">
@@ -870,7 +967,6 @@
           </div>
         </div>
 
-        <!-- GIF / Standard Card -->
         <div class="art-card">
           <div class="art-img-box">
             <img src="IMG_6330.gif" alt="" class="zoomable">
@@ -1088,38 +1184,36 @@
     </section>
 
     <section id="archives">
-  <div class="section-header">
-    <h2 class="section-title">VODs</h2>
-    <div class="section-subtitle">Archives & stream highlights</div>
-  </div>
-  <div class="vod-grid">
+      <div class="section-header">
+        <h2 class="section-title">VODs</h2>
+        <div class="section-subtitle">Archives & stream highlights</div>
+      </div>
+      <div class="vod-grid">
+        <a href="https://www.twitch.tv/videos/2907074504" target="_blank" class="vod-card">
+          <div class="vod-thumb">
+            <img src="vod1.png" alt="Stream Thumbnail" onerror="this.style.display='none'">
+            <div class="vod-play-btn"></div>
+          </div>
+          <div class="vod-details">
+            <div class="vod-tag">Recent Stream</div>
+            <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
+            <p class="vod-desc">PEAK</p>
+          </div>
+        </a>
 
-    <a href="https://www.twitch.tv/videos/2907074504" target="_blank" class="vod-card">
-      <div class="vod-thumb">
-        <img src="vod1.png" alt="Stream Thumbnail" onerror="this.style.display='none'">
-        <div class="vod-play-btn"></div>
+        <a href="https://x.com/BritishFilian/status/2116528371215524075?a=FftoAxekyXIo9T4qnzI&s=20" target="_blank" class="vod-card">
+          <div class="vod-thumb">
+            <img src="vod2.png" alt="Stream Thumbnail" onerror="this.style.display='none'">
+            <div class="vod-play-btn"></div>
+          </div>
+          <div class="vod-details">
+            <div class="vod-tag">HIGHLIGHT</div>
+            <h3 class="vod-title">Karaoke highlights</h3>
+            <p class="vod-desc">thvrne sings When I'm gone</p>
+          </div>
+        </a>
       </div>
-      <div class="vod-details">
-        <div class="vod-tag">Recent Stream</div>
-        <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
-        <p class="vod-desc">PEAK</p>
-      </div>
-    </a>
-
-    <a href="https://x.com/BritishFilian/status/2116528371215524075?a=FftoAxekyXIo9T4qnzI&s=20" target="_blank" class="vod-card">
-      <div class="vod-thumb">
-        <img src="vod2.png" alt="Stream Thumbnail" onerror="this.style.display='none'">
-        <div class="vod-play-btn"></div>
-      </div>
-      <div class="vod-details">
-        <div class="vod-tag">HIGHLIGHT</div>
-        <h3 class="vod-title">Karaoke highlights</h3>
-        <p class="vod-desc">thvrne sings When I'm gone</p>
-      </div>
-    </a>
-
-  </div>
-</section>
+    </section>
   </main>
 
   <footer>
@@ -1135,13 +1229,11 @@
     </div>
   </footer>
 
-  <!-- Lightbox Viewer Component -->
   <div class="lightbox" id="lightbox">
     <span class="lightbox-close" id="lightbox-close">&times;</span>
     <img id="lightbox-img" src="" alt="Zoomed View">
   </div>
 
-  <!-- Copied Toast Pop-up -->
   <div class="copy-toast" id="copy-toast">Copied hex code!</div>
 
   <script>
@@ -1158,7 +1250,6 @@
       }, 2000);
     }
 
-    // Lightbox Zoom Functionality
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.getElementById('lightbox-close');
