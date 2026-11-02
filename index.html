@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>THVRNE DA WEB</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -991,11 +992,11 @@
         <li><a href="#palette">Palette</a></li>
         <li><a href="#models">Models</a></li>
         <li><a href="#refsheet">Ref Sheet</a></li>
-        <li><a href="#art">Art</a></li>
+        <li><a href="#fanart">Art</a></li>
         <li><a href="#memes">Memes</a></li>
         <li><a href="#archives">VODs</a></li>
         <li><a href="#board">Board</a></li>
-
+        <li><span class="admin-trigger-icon" onclick="promptAdminMode()" title="Admin Access">🔒</span></li>
       </ul>
       <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge">
         <span class="status-dot"></span>
@@ -1697,47 +1698,26 @@
       hasDrawn = false;
     }
 
-    // Storage for entries
-    let boardPosts = JSON.parse(localStorage.getItem('thvrne_board_posts') || '[]');
+    // --- Supabase Client & Cloud Sync Logic (Using Safe Namespace) ---
+    const SUPABASE_URL = "https://yxzvruzxeynfgpctfrue.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_7Jj7AE89seaxQLiyw08uCQ_id8C6FqZ";
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    function savePosts() {
-      localStorage.setItem('thvrne_board_posts', JSON.stringify(boardPosts));
-      renderPosts();
-    }
+    let boardPosts = [];
 
-    function submitPost() {
-      const author = document.getElementById('postAuthor').value.trim() || 'Anonymous';
-      const text = document.getElementById('postText').value.trim();
-      let imageData = null;
+    // Fetch posts from Supabase database so all devices can see them
+    async function renderPosts() {
+      const { data: posts, error } = await db
+        .from('board_posts')
+        .select('*')
+        .order('id', { ascending: false });
 
-      if (hasDrawn) {
-        imageData = canvas.toDataURL();
-      }
-
-      if (!text && !imageData) {
-        showToast("Please write a message or draw something!");
+      if (error) {
+        console.error("Error fetching posts:", error);
         return;
       }
+      boardPosts = posts || [];
 
-      const newPost = {
-        id: Date.now(),
-        author: author,
-        text: text,
-        image: imageData,
-        timestamp: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
-      };
-
-      boardPosts.unshift(newPost);
-      savePosts();
-
-      // Clear input form
-      document.getElementById('postText').value = '';
-      document.getElementById('postAuthor').value = '';
-      clearCanvas();
-      showToast("Post added!");
-    }
-
-    function renderPosts() {
       const feed = document.getElementById('messageFeed');
       feed.innerHTML = '';
 
@@ -1762,7 +1742,7 @@
 
         html += `
           <div class="feed-author">${escapeHtml(post.author)}</div>
-          <div class="feed-time">${post.timestamp}</div>
+          <div class="feed-time">${post.timestamp || ''}</div>
         `;
 
         card.innerHTML = html;
@@ -1770,11 +1750,57 @@
       });
     }
 
-    function deletePost(id) {
-      boardPosts = boardPosts.filter(p => p.id !== id);
-      savePosts();
+    // Submit new post to Supabase
+    window.submitPost = async function() {
+      const author = document.getElementById('postAuthor').value.trim() || 'Anonymous';
+      const text = document.getElementById('postText').value.trim();
+      let imageData = null;
+
+      if (hasDrawn) {
+        imageData = canvas.toDataURL();
+      }
+
+      if (!text && !imageData) {
+        showToast("Please write a message or draw something!");
+        return;
+      }
+
+      const timestamp = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      const { error } = await db
+        .from('board_posts')
+        .insert([{ author, text, image: imageData, timestamp }]);
+
+      if (error) {
+        console.error("Error inserting post:", error);
+        showToast("Failed to post entry.");
+        return;
+      }
+
+      // Clear input form & canvas
+      document.getElementById('postText').value = '';
+      document.getElementById('postAuthor').value = '';
+      clearCanvas();
+      showToast("Post added!");
+      renderPosts();
+    };
+
+    // Delete post from Supabase (Admin action)
+    window.deletePost = async function(id) {
+      const { error } = await db
+        .from('board_posts')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error("Error deleting post:", error);
+        showToast("Failed to delete entry.");
+        return;
+      }
+
+      renderPosts();
       showToast("Entry removed");
-    }
+    };
 
     function escapeHtml(string) {
       return String(string).replace(/[&<>"']/g, function (s) {
@@ -1789,7 +1815,7 @@
     }
 
     // Hidden Admin Mode Handler
-    function promptAdminMode() {
+    window.promptAdminMode = function() {
       if (document.body.classList.contains('admin-mode')) {
         document.body.classList.remove('admin-mode');
         showToast("Exited Admin Mode");
@@ -1803,16 +1829,16 @@
       } else if (input !== null) {
         showToast("Incorrect Password");
       }
-    }
+    };
 
     // Admin keyboard shortcut (Ctrl + Shift + A)
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-        promptAdminMode();
+        window.promptAdminMode();
       }
     });
 
-    // Initialize board
+    // Initialize board on page load
     renderPosts();
   </script>
 </body>
