@@ -27,7 +27,7 @@
       --accent-obsidian: #14121A;
       --accent-silver: #B7B9C7;
       --accent-rose: #F5F4FA;
-      --border-subtle: rgba(226, 228, 246, 0.12);
+      --border-subtle: rgba(226, 228, 246, 0.08);
       --font-heading: 'Cinzel', serif;
       --font-editorial: 'Cormorant Garamond', serif;
       --font-sans: 'Plus Jakarta Sans', sans-serif;
@@ -46,7 +46,7 @@
       --text-lg: 1.25rem;
       --text-xl: 1.75rem;
       --text-2xl: 2.5rem;
-      --text-hero: clamp(2.5rem, 8vw, 4.5rem);
+      --text-hero: clamp(2.2rem, 6vw, 3.8rem);
     }
 
     * {
@@ -70,79 +70,55 @@
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1300px;
       margin: 0 auto;
-      padding: 0 var(--space-8);
+      padding: var(--space-8);
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10, 9, 13, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: var(--space-4) 0;
-    }
-
-    .nav-wrapper {
+    .brand-header {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      position: relative;
+      text-align: center;
+      margin-bottom: var(--space-8);
+      padding-top: var(--space-4);
     }
 
-    .logo {
+    .brand-title {
       font-family: var(--font-heading);
-      font-size: var(--text-lg);
+      font-size: var(--text-hero);
       font-weight: 800;
-      letter-spacing: 4px;
+      letter-spacing: 6px;
       text-transform: uppercase;
       color: var(--accent-lavender);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: var(--space-8);
-      list-style: none;
-      font-family: var(--font-sans);
-      font-size: var(--text-xs);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      align-items: center;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-violet);
-    }
-
-    .admin-trigger-icon {
       cursor: pointer;
-      opacity: 0.3;
-      transition: opacity 0.3s ease;
+      user-select: none;
+      line-height: 1.1;
+      margin-bottom: var(--space-1);
     }
-    
-    .admin-trigger-icon:hover {
-      opacity: 1;
+
+    .brand-subtitle {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: var(--text-base);
+      color: var(--accent-violet);
+      margin-bottom: var(--space-4);
     }
 
     .status-badge {
       display: inline-flex;
       align-items: center;
       gap: var(--space-2);
-      border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: var(--space-1);
       font-size: var(--text-xs);
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--accent-silver);
-      transition: color 0.3s ease, border-color 0.3s ease;
-      white-space: nowrap;
+      transition: color 0.3s ease;
+      margin-bottom: var(--space-8);
     }
 
     .status-badge:hover {
       color: var(--accent-violet);
-      border-color: var(--accent-violet);
     }
 
     .status-dot {
@@ -152,65 +128,105 @@
       border-radius: 50%;
     }
 
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--accent-rose);
+    .main-nav-strip {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-12);
+    }
+
+    .pill-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-silver);
+      padding: var(--space-2) var(--space-6);
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      letter-spacing: 2px;
+      text-transform: uppercase;
       cursor: pointer;
-      padding: var(--space-2);
+      border-radius: 9999px;
+      transition: all 0.3s ease;
     }
 
-    .menu-toggle svg {
-      width: 24px;
-      height: 24px;
-      stroke: currentColor;
+    .pill-btn:hover {
+      border-color: var(--accent-violet);
+      color: var(--accent-rose);
     }
 
-    .hero {
-      padding: var(--space-16) 0 var(--space-12);
+    .pill-btn.active {
+      background: var(--accent-lavender);
+      border-color: var(--accent-lavender);
+      color: var(--bg-dark);
+      font-weight: 600;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .side-by-side-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--space-8);
+      gap: var(--space-12);
       align-items: center;
+      margin-bottom: var(--space-16);
     }
 
-    .hero-tag {
+    .side-by-side-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .spec-card {
+      border-left: 2px solid var(--border-subtle);
+      padding-left: var(--space-4);
+      text-align: left;
+    }
+
+    .spec-label {
       font-family: var(--font-editorial);
       font-style: italic;
-      font-size: var(--text-lg);
+      font-size: var(--text-xs);
       color: var(--accent-violet);
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--space-1);
     }
 
-    .hero-title {
+    .spec-value {
       font-family: var(--font-heading);
-      font-size: var(--text-hero);
-      font-weight: 600;
-      line-height: 1.05;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: var(--space-6);
+      font-size: var(--text-sm);
+      letter-spacing: 1px;
       color: var(--accent-lavender);
-      background: none;
-      -webkit-background-clip: initial;
-      -webkit-text-fill-color: initial;
-      cursor: pointer;
-      user-select: none;
-      display: inline-block;
-      word-break: break-word;
     }
 
     .hero-image-wrapper {
       display: flex;
-      justify-content: flex-end;
-      position: relative;
+      justify-content: center;
+      align-items: center;
     }
 
     .hero-img {
       display: block;
       width: 100%;
-      max-width: 540px;
+      max-width: 480px;
       height: auto;
       object-fit: contain;
       cursor: zoom-in;
@@ -223,14 +239,12 @@
 
     .section-header {
       text-align: left;
-      margin-bottom: var(--space-12);
-      border-top: 1px solid var(--border-subtle);
-      padding-top: var(--space-8);
+      margin-bottom: var(--space-8);
     }
 
     .section-title {
       font-family: var(--font-heading);
-      font-size: var(--text-2xl);
+      font-size: var(--text-xl);
       letter-spacing: 3px;
       text-transform: uppercase;
       margin-bottom: var(--space-1);
@@ -240,60 +254,35 @@
     .section-subtitle {
       font-family: var(--font-editorial);
       font-style: italic;
-      font-size: var(--text-lg);
-      color: var(--accent-violet);
-    }
-
-    .specs-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-8);
-      margin-bottom: var(--space-24);
-    }
-
-    .spec-card {
-      border-top: 1px solid var(--border-subtle);
-      padding-top: var(--space-4);
-      text-align: left;
-    }
-
-    .spec-label {
-      font-family: var(--font-editorial);
-      font-style: italic;
-      font-size: var(--text-sm);
-      color: var(--accent-violet);
-      margin-bottom: var(--space-1);
-    }
-
-    .spec-value {
-      font-family: var(--font-heading);
       font-size: var(--text-base);
-      letter-spacing: 1px;
-      color: var(--accent-lavender);
+      color: var(--accent-violet);
     }
 
     .palette-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: var(--space-6);
-      margin-bottom: var(--space-24);
+      gap: var(--space-4);
+      margin-bottom: var(--space-16);
     }
 
     .swatch-card {
       cursor: pointer;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: var(--space-4);
-      transition: opacity 0.3s ease;
+      border: 1px solid var(--border-subtle);
+      padding: var(--space-3);
+      border-radius: 4px;
+      transition: all 0.3s ease;
       text-align: left;
     }
 
     .swatch-card:hover {
-      opacity: 0.8;
+      border-color: var(--accent-violet);
+      transform: translateY(-2px);
     }
 
     .swatch-preview {
-      height: 60px;
-      margin-bottom: var(--space-3);
+      height: 50px;
+      margin-bottom: var(--space-2);
+      border-radius: 2px;
     }
 
     .swatch-title {
@@ -304,26 +293,66 @@
     }
 
     .swatch-code {
-      font-size: var(--text-xs);
+      font-size: 0.7rem;
       color: var(--accent-silver);
-      margin-top: var(--space-1);
+      margin-top: 2px;
+    }
+
+    .gallery-sub-nav {
+      display: flex;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+      flex-wrap: wrap;
+    }
+
+    .gallery-sub-btn {
+      background: transparent;
+      border: none;
+      color: var(--accent-silver);
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: var(--space-1) var(--space-3);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .gallery-sub-btn:hover {
+      color: var(--accent-violet);
+    }
+
+    .gallery-sub-btn.active {
+      color: var(--accent-lavender);
+      border-bottom-color: var(--accent-lavender);
+    }
+
+    .gallery-view-pane, .model-view-pane {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .gallery-view-pane.active, .model-view-pane.active {
+      display: block;
     }
 
     .models-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-8);
-      margin-bottom: var(--space-24);
+      gap: var(--space-6);
+      margin-bottom: var(--space-16);
     }
 
     .model-card {
       text-align: left;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: var(--space-4);
+      border: 1px solid var(--border-subtle);
+      padding: var(--space-4);
+      border-radius: 4px;
     }
 
     .model-img-wrapper {
-      height: 420px;
+      height: 380px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -343,15 +372,16 @@
       font-family: var(--font-editorial);
       font-style: italic;
       color: var(--accent-violet);
-      font-size: var(--text-sm);
+      font-size: var(--text-xs);
     }
 
     .refsheet-card {
       max-width: 100%;
-      margin: 0 0 var(--space-24) 0;
+      margin-bottom: var(--space-16);
       text-align: left;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: var(--space-4);
+      border: 1px solid var(--border-subtle);
+      padding: var(--space-4);
+      border-radius: 4px;
     }
 
     .refsheet-img-wrapper {
@@ -376,15 +406,15 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-auto-flow: dense;
-      gap: var(--space-8);
+      gap: var(--space-6);
       align-items: start;
-      margin-bottom: var(--space-24);
+      margin-bottom: var(--space-16);
     }
 
     .art-card {
-      border-top: 1px solid var(--border-subtle);
-      padding-top: var(--space-4);
-      position: relative;
+      border: 1px solid var(--border-subtle);
+      padding: var(--space-4);
+      border-radius: 4px;
     }
 
     .art-card.landscape {
@@ -394,18 +424,17 @@
     .art-tag-banner {
       display: inline-flex;
       align-items: center;
-      gap: var(--space-3);
-      margin-top: var(--space-4);
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
       cursor: pointer;
       color: var(--accent-violet);
       font-family: var(--font-sans);
       font-size: var(--text-xs);
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      transition: color 0.3s ease;
     }
 
-    .art-tag-banner:hover {
+    .art-tag-banner hover {
       color: var(--accent-rose);
     }
 
@@ -432,7 +461,7 @@
     }
 
     .art-info {
-      padding: var(--space-1) 0;
+      padding-top: var(--space-1);
     }
 
     .art-artist {
@@ -442,21 +471,22 @@
     }
 
     .art-handle {
-      font-size: var(--text-xs);
+      font-size: 0.7rem;
       color: var(--accent-silver);
     }
 
     .meme-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-8);
+      gap: var(--space-6);
       align-items: start;
-      margin-bottom: var(--space-24);
+      margin-bottom: var(--space-16);
     }
 
     .meme-card {
-      border-top: 1px solid var(--border-subtle);
-      padding-top: var(--space-4);
+      border: 1px solid var(--border-subtle);
+      padding: var(--space-4);
+      border-radius: 4px;
     }
 
     .meme-img-box img {
@@ -475,22 +505,23 @@
     }
 
     .meme-caption {
-      font-size: var(--text-xs);
+      font-size: 0.7rem;
       color: var(--accent-silver);
     }
 
     .vod-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-8);
-      margin-bottom: var(--space-24);
+      gap: var(--space-6);
+      margin-bottom: var(--space-16);
     }
 
     .vod-card {
-      border-top: 1px solid var(--border-subtle);
-      padding-top: var(--space-4);
+      border: 1px solid var(--border-subtle);
+      padding: var(--space-4);
+      border-radius: 4px;
       display: flex;
-      gap: var(--space-6);
+      gap: var(--space-4);
       text-decoration: none;
       color: inherit;
       text-align: left;
@@ -515,8 +546,8 @@
 
     .vod-play-btn {
       position: absolute;
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       background: rgba(10, 9, 13, 0.85);
       border-radius: 50%;
       display: flex;
@@ -526,8 +557,8 @@
     }
 
     .vod-play-btn svg {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       fill: currentColor;
     }
 
@@ -541,39 +572,39 @@
     .vod-tag {
       font-family: var(--font-editorial);
       font-style: italic;
-      font-size: var(--text-xs);
+      font-size: 0.7rem;
       color: var(--accent-violet);
-      margin-bottom: var(--space-1);
+      margin-bottom: 2px;
     }
 
     .vod-title {
       font-family: var(--font-heading);
-      font-size: var(--text-sm);
+      font-size: var(--text-xs);
       letter-spacing: 1px;
-      margin-bottom: var(--space-1);
+      margin-bottom: 2px;
     }
 
     .vod-desc {
-      font-size: var(--text-xs);
+      font-size: 0.7rem;
       color: var(--accent-silver);
     }
 
-    /* Message Board / Drawing Canvas Styles */
     .board-container {
-      margin-bottom: var(--space-24);
+      margin-bottom: var(--space-16);
       display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: var(--space-8);
+      grid-template-columns: 320px 1fr;
+      gap: var(--space-6);
       align-items: start;
     }
 
     .drawing-tools {
       border: 1px solid var(--border-subtle);
-      padding: var(--space-6);
+      padding: var(--space-4);
       background: var(--accent-obsidian);
       display: flex;
       flex-direction: column;
-      gap: var(--space-4);
+      gap: var(--space-3);
+      border-radius: 4px;
     }
 
     .canvas-wrapper {
@@ -595,16 +626,16 @@
     .tool-row {
       display: flex;
       align-items: center;
-      gap: var(--space-3);
+      gap: var(--space-2);
       flex-wrap: wrap;
     }
 
     .tool-label {
-      font-size: var(--text-xs);
+      font-size: 0.7rem;
       font-family: var(--font-heading);
       letter-spacing: 1px;
       color: var(--accent-silver);
-      min-width: 60px;
+      min-width: 50px;
     }
 
     .input-field {
@@ -612,10 +643,11 @@
       background: var(--bg-dark);
       border: 1px solid var(--border-subtle);
       color: var(--accent-rose);
-      padding: var(--space-2) var(--space-3);
+      padding: var(--space-2);
       font-family: var(--font-sans);
       font-size: var(--text-xs);
       outline: none;
+      border-radius: 2px;
     }
 
     .input-field:focus {
@@ -624,7 +656,7 @@
 
     textarea.input-field {
       resize: vertical;
-      min-height: 80px;
+      min-height: 70px;
     }
 
     .btn {
@@ -638,6 +670,7 @@
       padding: var(--space-2) var(--space-4);
       cursor: pointer;
       transition: all 0.3s ease;
+      border-radius: 2px;
     }
 
     .btn:hover {
@@ -656,19 +689,20 @@
 
     .message-feed {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: var(--space-6);
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--space-4);
       align-items: start;
     }
 
     .feed-card {
       border: 1px solid var(--border-subtle);
       background: var(--accent-obsidian);
-      padding: var(--space-4);
+      padding: var(--space-3);
       display: flex;
       flex-direction: column;
       gap: var(--space-2);
       position: relative;
+      border-radius: 4px;
     }
 
     .feed-card.text-only {
@@ -691,14 +725,14 @@
     }
 
     .feed-text {
-      font-size: var(--text-xs);
+      font-size: 0.75rem;
       color: var(--accent-silver);
       word-break: break-word;
     }
 
     .feed-time {
       font-size: 0.65rem;
-      color: var(--border-subtle);
+      color: rgba(226, 228, 246, 0.4);
       margin-top: auto;
     }
 
@@ -729,11 +763,12 @@
       display: none;
       background: #dc2626;
       color: #fff;
-      font-size: var(--text-xs);
+      font-size: 0.65rem;
       letter-spacing: 1px;
-      padding: var(--space-1) var(--space-3);
+      padding: 2px 8px;
       font-family: var(--font-heading);
       text-transform: uppercase;
+      margin-top: var(--space-2);
     }
 
     body.admin-mode .admin-indicator {
@@ -741,10 +776,9 @@
     }
 
     .quote-banner {
-      border-top: 1px solid var(--border-subtle);
-      padding: var(--space-16) 0;
+      padding: var(--space-12) 0;
       text-align: left;
-      margin-bottom: var(--space-24);
+      margin-bottom: var(--space-8);
     }
 
     .quote-text {
@@ -762,12 +796,12 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      min-height: 200px;
+      min-height: 180px;
       background: var(--accent-obsidian);
       color: var(--accent-silver);
       font-family: var(--font-editorial);
       font-style: italic;
-      font-size: var(--text-sm);
+      font-size: var(--text-xs);
       gap: var(--space-2);
       text-align: center;
       padding: var(--space-4);
@@ -781,8 +815,8 @@
     }
 
     footer {
-      border-top: 1px solid var(--border-subtle);
-      padding: var(--space-12) 0;
+      padding: var(--space-8) 0;
+      border-top: none;
     }
 
     .footer-wrapper {
@@ -805,7 +839,7 @@
     }
 
     .copy {
-      font-size: var(--text-xs);
+      font-size: 0.7rem;
       color: var(--accent-silver);
     }
 
@@ -855,8 +889,8 @@
       background: var(--bg-dark);
       border: 1px solid var(--accent-violet);
       color: var(--accent-lavender);
-      padding: var(--space-3) var(--space-6);
-      font-size: var(--text-xs);
+      padding: var(--space-2) var(--space-4);
+      font-size: 0.7rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       opacity: 0;
@@ -870,52 +904,18 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Tablet & Mobile Specific Rules */
     @media (max-width: 992px) {
-      .menu-toggle {
-        display: block;
-      }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(10, 9, 13, 0.98);
-        border-bottom: 1px solid var(--border-subtle);
-        flex-direction: column;
-        padding: var(--space-6) 0;
-        gap: var(--space-4);
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .hero {
+      .side-by-side-layout {
         grid-template-columns: 1fr;
-        padding: var(--space-8) 0;
-        text-align: center;
-      }
-
-      .hero-image-wrapper {
-        justify-content: center;
-      }
-
-      .specs-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-4);
+        gap: var(--space-8);
       }
 
       .palette-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: var(--space-4);
       }
 
       .models-grid, .fanart-grid, .meme-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-6);
       }
 
       .art-card.landscape {
@@ -929,28 +929,20 @@
 
     @media (max-width: 600px) {
       .container {
-        padding: 0 var(--space-4);
+        padding: var(--space-4);
       }
 
-      .section-header {
-        margin-bottom: var(--space-6);
-        padding-top: var(--space-6);
+      .brand-title {
+        letter-spacing: 3px;
       }
 
-      .specs-grid, .palette-grid, .models-grid, .fanart-grid, .meme-grid {
+      .palette-grid, .models-grid, .fanart-grid, .meme-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-6);
-        margin-bottom: var(--space-12);
+        gap: var(--space-4);
       }
 
       .board-container {
         grid-template-columns: 1fr;
-        gap: var(--space-6);
-        margin-bottom: var(--space-12);
-      }
-
-      .drawing-tools {
-        padding: var(--space-4);
       }
 
       .vod-card {
@@ -963,17 +955,8 @@
 
       .footer-wrapper {
         flex-direction: column;
-        align-items: flex-start;
         gap: var(--space-4);
-      }
-
-      .footer-links {
-        flex-wrap: wrap;
-        gap: var(--space-3);
-      }
-
-      .message-feed {
-        grid-template-columns: 1fr;
+        align-items: flex-start;
       }
     }
   </style>
@@ -981,256 +964,240 @@
 </head>
 <body>
 
-  <header>
-    <div class="container nav-wrapper">
-      <div class="logo">THVRNE</div>
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#specs">Bio</a></li>
-        <li><a href="#palette">Palette</a></li>
-        <li><a href="#models">Models</a></li>
-        <li><a href="#refsheet">Ref Sheet</a></li>
-        <li><a href="#fanart">Art</a></li>
-        <li><a href="#memes">Memes</a></li>
-        <li><a href="#archives">VODs</a></li>
-        <li><a href="#board">Board</a></li>
-      </ul>
+  <main class="container">
+    <div class="brand-header">
+      <h1 class="brand-title" id="toggleNameTitle" title="Click to toggle hidden name">THVRNE</h1>
       <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge">
         <span class="status-dot"></span>
         TWITCH.TV/THVRNE
       </a>
+
+      <nav class="main-nav-strip">
+        <button class="pill-btn active" onclick="switchMainTab('overview', this)">Overview</button>
+        <button class="pill-btn" onclick="switchMainTab('models', this)">Models</button>
+        <button class="pill-btn" onclick="switchMainTab('gallery', this)">Gallery</button>
+        <button class="pill-btn" onclick="switchMainTab('board', this)">Board</button>
+      </nav>
     </div>
-  </header>
 
-  <main class="container">
-    <section class="hero">
-      <div>
-        <div class="hero-tag">a delicate ball-jointed doll brought to 'life'.</div>
-        <h1 class="hero-title" id="toggleNameTitle" title="Click to toggle hidden name">THVRNE</h1>
-      </div>
-      <div class="hero-image-wrapper">
-        <img src="main.png" alt="THVRNE VTuber Model" class="hero-img zoomable" onerror="handleImageError(this, 'THVRNE Full Model')">
-      </div>
-    </section>
-
-    <section id="specs">
-      <div class="section-header">
-        <h2 class="section-title">Specifications</h2>
-        <div class="section-subtitle">Character details & attributes</div>
-      </div>
-      <div class="specs-grid">
-        <div class="spec-card">
-          <div class="spec-label">Placeholder</div>
-          <div class="spec-value">Placeholder</div>
-        </div>
-        <div class="spec-card">
-          <div class="spec-label">Placeholder</div>
-          <div class="spec-value">Placeholder</div>
-        </div>
-        <div class="spec-card">
-          <div class="spec-label">Placeholder</div>
-          <div class="spec-value">Placeholder</div>
-        </div>
-        <div class="spec-card">
-          <div class="spec-label">Placeholder</div>
-          <div class="spec-value">Placeholder</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="palette">
-      <div class="section-header">
-        <h2 class="section-title">Color Palette</h2>
-        <div class="section-subtitle">Brand identity swatches</div>
-      </div>
-      <div class="palette-grid">
-        <div class="swatch-card" onclick="copyHex('#E2E4F6')">
-          <div class="swatch-preview" style="background: #E2E4F6;"></div>
-          <div class="swatch-title">Porcelain Silver</div>
-          <div class="swatch-code">#E2E4F6</div>
-        </div>
-        <div class="swatch-card" onclick="copyHex('#DFEAFE')">
-          <div class="swatch-preview" style="background: #DFEAFE;"></div>
-          <div class="swatch-title">Seashell Blue</div>
-          <div class="swatch-code">#DFEAFE</div>
-        </div>
-        <div class="swatch-card" onclick="copyHex('#26242B')">
-          <div class="swatch-preview" style="background: #26242B;"></div>
-          <div class="swatch-title">Obsidian Velvet</div>
-          <div class="swatch-code">#26242B</div>
-        </div>
-        <div class="swatch-card" onclick="copyHex('#F5F4FA')">
-          <div class="swatch-preview" style="background: #F5F4FA;"></div>
-          <div class="swatch-title">White Rose</div>
-          <div class="swatch-code">#F5F4FA</div>
-        </div>
-        <div class="swatch-card" onclick="copyHex('#B7B9C7')">
-          <div class="swatch-preview" style="background: #B7B9C7;"></div>
-          <div class="swatch-title">Antique Silver</div>
-          <div class="swatch-code">#B7B9C7</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="models">
-      <div class="section-header">
-        <h2 class="section-title">Model Showcase</h2>
-        <div class="section-subtitle">Variations & outfits</div>
-      </div>
-      <div class="models-grid">
-        <div class="model-card">
-          <div class="model-img-wrapper">
-            <img src="main1.png" alt="Original Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Default Model')">
+    <div id="tab-overview" class="tab-content active">
+      <section class="side-by-side-layout">
+        <div class="side-by-side-info">
+          <div class="section-header">
+            <h2 class="section-title">Specifications</h2>
+            <div class="section-subtitle">a delicate ball-jointed doll brought to 'life'</div>
           </div>
-          <div class="model-tag">Default //</div>
-        </div>
-        <div class="model-card">
-          <div class="model-img-wrapper">
-            <img src="main2.png" alt="Alt Outfit Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Alt Outfit')">
-          </div>
-          <div class="model-tag">Alt Outfit //</div>
-        </div>
-        <div class="model-card">
-          <div class="model-img-wrapper">
-            <img src="chibi.png" alt="Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Chibi Model')">
-          </div>
-          <div class="model-tag">Chibi //</div>
-        </div>
-        <div class="model-card">
-          <div class="model-img-wrapper">
-            <img src="chibinoglasses.png" alt="Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Chibi w/o Glasses')">
-          </div>
-          <div class="model-tag">Chibi w/o glasses //</div>
-        </div>
-        <div class="model-card">
-          <div class="model-img-wrapper">
-            <img src="catthorne1.png" alt="Cat Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Cat Chibi')">
-          </div>
-          <div class="model-tag">Cat Chibi //</div>
-        </div>
-        <div class="model-card">
-          <div class="model-img-wrapper">
-            <div class="image-fallback">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-              <span>Upcoming Outfit in Development</span>
+          <div class="specs-grid">
+            <div class="spec-card">
+              <div class="spec-label">Placeholder</div>
+              <div class="spec-value">Placeholder</div>
+            </div>
+            <div class="spec-card">
+              <div class="spec-label">Placeholder</div>
+              <div class="spec-value">Placeholder</div>
+            </div>
+            <div class="spec-card">
+              <div class="spec-label">Placeholder</div>
+              <div class="spec-value">Placeholder</div>
+            </div>
+            <div class="spec-card">
+              <div class="spec-label">Placeholder</div>
+              <div class="spec-value">Placeholder</div>
             </div>
           </div>
-          <div class="model-tag">In Development //</div>
-        </div>
-      </div>
-    </section>
 
-    <section id="refsheet">
-      <div class="section-header">
-        <h2 class="section-title">Reference Sheet</h2>
-        <div class="section-subtitle">Character design & details</div>
-      </div>
-      <div class="refsheet-card">
-        <div class="refsheet-img-wrapper">
-          <img src="fullref.png" alt="THVRNE Full Reference Sheet" class="refsheet-img zoomable" onerror="handleImageError(this, 'Reference Sheet')">
-        </div>
-        <div class="art-info">
-          <div class="art-artist">trinittoluene</div>
-        </div>
-      </div>
-    </section>
+          <div class="spec-card" style="border-left: 2px solid var(--accent-violet); margin-top: var(--space-2); padding-left: var(--space-4);">
+            <div class="spec-value" style="font-family: var(--font-editorial); font-style: italic; font-size: var(--text-base); color: var(--accent-lavender);">
+              "呼吸を覚えた 教わってないけど"
+            </div>
+          </div>
 
-    <section id="fanart">
-      <div class="section-header">
-        <h2 class="section-title">Velvet Atelier</h2>
-        <div class="section-subtitle">Art Gallery</div>
-        <div class="art-tag-banner" onclick="copyTag('#GardenofThorne')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          <span>Official Tag // #GardenofThorne</span>
-        </div>
-      </div>
-      <div class="fanart-grid">
-        <div class="art-card">
-          <div class="art-img-box">
-            <img src="satera723.png" alt="Artwork by satera723" class="zoomable" onerror="handleImageError(this, 'Artwork by satera723')">
+          <div class="section-header" style="margin-top: var(--space-6); margin-bottom: var(--space-4);">
+            <h2 class="section-title" style="font-size: var(--text-lg);">Color Palette</h2>
           </div>
-          <div class="art-info">
-            <div class="art-artist">ラテ</div>
-            <div class="art-handle">@satera723</div>
+          <div class="palette-grid" style="margin-bottom: 0;">
+            <div class="swatch-card" onclick="copyHex('#E2E4F6')">
+              <div class="swatch-preview" style="background: #E2E4F6;"></div>
+              <div class="swatch-title">Porcelain Silver</div>
+              <div class="swatch-code">#E2E4F6</div>
+            </div>
+            <div class="swatch-card" onclick="copyHex('#DFEAFE')">
+              <div class="swatch-preview" style="background: #DFEAFE;"></div>
+              <div class="swatch-title">Seashell Blue</div>
+              <div class="swatch-code">#DFEAFE</div>
+            </div>
+            <div class="swatch-card" onclick="copyHex('#26242B')">
+              <div class="swatch-preview" style="background: #26242B;"></div>
+              <div class="swatch-title">Obsidian Velvet</div>
+              <div class="swatch-code">#26242B</div>
+            </div>
+            <div class="swatch-card" onclick="copyHex('#F5F4FA')">
+              <div class="swatch-preview" style="background: #F5F4FA;"></div>
+              <div class="swatch-title">White Rose</div>
+              <div class="swatch-code">#F5F4FA</div>
+            </div>
+            <div class="swatch-card" onclick="copyHex('#B7B9C7')">
+              <div class="swatch-preview" style="background: #B7B9C7;"></div>
+              <div class="swatch-title">Antique Silver</div>
+              <div class="swatch-code">#B7B9C7</div>
+            </div>
           </div>
         </div>
+        <div class="hero-image-wrapper">
+          <img src="main.png" alt="THVRNE Full Model" class="hero-img zoomable" onerror="handleImageError(this, 'THVRNE Full Model')">
+        </div>
+      </section>
+    </div>
 
-        <div class="art-card landscape">
-          <div class="art-img-box">
-            <img src="artwork1.png" alt="Artwork by TsuyuCha" class="zoomable" onerror="handleImageError(this, 'Artwork by TsuyuCha')">
-          </div>
-          <div class="art-info">
-            <div class="art-artist">露茶◆TsuyuCha</div>
-            <div class="art-handle">@tsuyutya</div>
-          </div>
-        </div>
+    <div id="tab-models" class="tab-content">
+      <nav class="gallery-sub-nav">
+        <button class="gallery-sub-btn active" onclick="switchModelPane('showcase-pane', this)">Model Showcase</button>
+        <button class="gallery-sub-btn" onclick="switchModelPane('refsheet-pane', this)">Reference Sheet</button>
+      </nav>
 
-        <div class="art-card landscape">
-          <div class="art-img-box">
-            <img src="3900352-2.png" alt="Artwork by kouchanthree" class="zoomable" onerror="handleImageError(this, 'Artwork by kouchanthree')">
-          </div>
-          <div class="art-info">
-            <div class="art-artist">こうちゃん</div>
-            <div class="art-handle">@kouchanthree</div>
-          </div>
+      <div id="showcase-pane" class="model-view-pane active">
+        <div class="section-header">
+          <h2 class="section-title">Model Showcase</h2>
+          <div class="section-subtitle">Variations & outfits</div>
         </div>
-
-        <div class="art-card">
-          <div class="art-img-box">
-            <img src="tsuyutya.png" alt="Artwork by TsuyuCha" class="zoomable" onerror="handleImageError(this, 'Artwork by TsuyuCha')">
+        <div class="models-grid">
+          <div class="model-card">
+            <div class="model-img-wrapper">
+              <img src="main1.png" alt="Original Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Default Model')">
+            </div>
+            <div class="model-tag">Default //</div>
           </div>
-          <div class="art-info">
-            <div class="art-artist">露茶◆TsuyuCha</div>
-            <div class="art-handle">@tsuyutya</div>
+          <div class="model-card">
+            <div class="model-img-wrapper">
+              <img src="main2.png" alt="Alt Outfit Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Alt Outfit')">
+            </div>
+            <div class="model-tag">Alt Outfit //</div>
           </div>
-        </div>
-
-        <div class="art-card">
-          <div class="art-img-box">
-            <img src="CD3BD835.jpg" alt="Artwork by Axium" class="zoomable" onerror="handleImageError(this, 'Artwork by Axium')">
+          <div class="model-card">
+            <div class="model-img-wrapper">
+              <img src="chibi.png" alt="Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Chibi Model')">
+            </div>
+            <div class="model-tag">Chibi //</div>
           </div>
-          <div class="art-info">
-            <div class="art-artist">Axium</div>
-            <div class="art-handle">@angeloftheaxis</div>
+          <div class="model-card">
+            <div class="model-img-wrapper">
+              <img src="chibinoglasses.png" alt="Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Chibi w/o Glasses')">
+            </div>
+            <div class="model-tag">Chibi w/o glasses //</div>
           </div>
-        </div>
-
-        <div class="art-card">
-          <div class="art-img-box">
-            <img src="15coro_aaa.png" alt="Artwork by Nachiko" class="zoomable" onerror="handleImageError(this, 'Artwork by Nachiko')">
+          <div class="model-card">
+            <div class="model-img-wrapper">
+              <img src="catthorne1.png" alt="Cat Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Cat Chibi')">
+            </div>
+            <div class="model-tag">Cat Chibi //</div>
           </div>
-          <div class="art-info">
-            <div class="art-artist">なちこ</div>
-            <div class="art-handle">@15coro_aaa</div>
-          </div>
-        </div>
-
-        <div class="art-card">
-          <div class="art-img-box">
-            <img src="IMG_6330.gif" alt="Community Artwork" class="zoomable" onerror="handleImageError(this, 'Community Artwork')">
-          </div>
-          <div class="art-info">
-            <div class="art-artist">Unknown</div>
-            <div class="art-handle">@Unknown</div>
+          <div class="model-card">
+            <div class="model-img-wrapper">
+              <div class="image-fallback">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                <span>Upcoming Outfit in Development</span>
+              </div>
+            </div>
+            <div class="model-tag">In Development //</div>
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="quote-banner">
-      <blockquote class="quote-text">
-        "呼吸を覚えた 教わってないけど"
-      </blockquote>
-    </section>
-
-    <section id="memes">
-      <div class="section-header">
-        <h2 class="section-title">Meme Atelier</h2>
-        <div class="section-subtitle">Chaos</div>
+      <div id="refsheet-pane" class="model-view-pane">
+        <div class="section-header">
+          <h2 class="section-title">Reference Sheet</h2>
+          <div class="section-subtitle">Character design & details</div>
+        </div>
+        <div class="refsheet-card">
+          <div class="refsheet-img-wrapper">
+            <img src="fullref.png" alt="THVRNE Full Reference Sheet" class="refsheet-img zoomable" onerror="handleImageError(this, 'Reference Sheet')">
+          </div>
+          <div class="art-info">
+            <div class="art-artist">trinittoluene</div>
+          </div>
+        </div>
       </div>
-      <div class="meme-grid">
+    </div>
+
+    <div id="tab-gallery" class="tab-content">
+      <nav class="gallery-sub-nav">
+        <button class="gallery-sub-btn active" onclick="switchGalleryPane('fanart-pane', this)">Art Gallery</button>
+        <button class="gallery-sub-btn" onclick="switchGalleryPane('memes-pane', this)">Meme Gallery</button>
+        <button class="gallery-sub-btn" onclick="switchGalleryPane('vods-pane', this)">VOD Broadcasts</button>
+      </nav>
+
+      <div id="fanart-pane" class="gallery-view-pane active">
+        <div class="section-header">
+          <h2 class="section-title">Art Gallery</h2>
+          <div class="art-tag-banner" onclick="copyTag('#GardenofThorne')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Official Tag // #GardenofThorne</span>
+          </div>
+        </div>
+        <div class="fanart-grid">
+          <div class="art-card">
+            <div class="art-img-box">
+              <img src="satera723.png" alt="Artwork by satera723" class="zoomable" onerror="handleImageError(this, 'Artwork by satera723')">
+            </div>
+            <div class="art-info">
+              <div class="art-artist">ラテ</div>
+              <div class="art-handle">@satera723</div>
+            </div>
+          </div>
+          <div class="art-card landscape">
+            <div class="art-img-box">
+              <img src="artwork1.png" alt="Artwork by TsuyuCha" class="zoomable" onerror="handleImageError(this, 'Artwork by TsuyuCha')">
+            </div>
+            <div class="art-info">
+              <div class="art-artist">露茶◆TsuyuCha</div>
+              <div class="art-handle">@tsuyutya</div>
+            </div>
+          </div>
+          <div class="art-card landscape">
+            <div class="art-img-box">
+              <img src="3900352-2.png" alt="Artwork by kouchanthree" class="zoomable" onerror="handleImageError(this, 'Artwork by kouchanthree')">
+            </div>
+            <div class="art-info">
+              <div class="art-artist">こうちゃん</div>
+              <div class="art-handle">@kouchanthree</div>
+            </div>
+          </div>
+          <div class="art-card">
+            <div class="art-img-box">
+              <img src="tsuyutya.png" alt="Artwork by TsuyuCha" class="zoomable" onerror="handleImageError(this, 'Artwork by TsuyuCha')">
+            </div>
+            <div class="art-info">
+              <div class="art-artist">露茶◆TsuyuCha</div>
+              <div class="art-handle">@tsuyutya</div>
+            </div>
+          </div>
+          <div class="art-card">
+            <div class="art-img-box">
+              <img src="CD3BD835.jpg" alt="Artwork by Axium" class="zoomable" onerror="handleImageError(this, 'Artwork by Axium')">
+            </div>
+            <div class="art-info">
+              <div class="art-artist">Axium</div>
+              <div class="art-handle">@angeloftheaxis</div>
+            </div>
+          </div>
+          <div class="art-card">
+            <div class="art-img-box">
+              <img src="15coro_aaa.png" alt="Artwork by Nachiko" class="zoomable" onerror="handleImageError(this, 'Artwork by Nachiko')">
+            </div>
+            <div class="art-info">
+              <div class="art-artist">なちこ</div>
+              <div class="art-handle">@15coro_aaa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="memes-pane" class="gallery-view-pane">
+        <div class="section-header">
+          <h2 class="section-title">Meme</h2>
+          <div class="section-subtitle">Chaos archives</div>
+        </div>
+        <div class="meme-grid">
         <div class="meme-card">
           <div class="meme-img-box">
             <img src="IMG_1931.png" alt="meme" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
@@ -1240,7 +1207,6 @@
             <div class="meme-caption">@unknown</div>
           </div>
         </div>
-      <div class="meme-grid">
         <div class="meme-card">
           <div class="meme-img-box">
             <img src="meme/0is-shakespeare-really-dead1.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
@@ -1431,46 +1397,45 @@
           </div>
         </div>
       </div>
-    </section>
-
-    <section id="archives">
-      <div class="section-header">
-        <h2 class="section-title">Explore Broadcasts</h2>
-        <div class="section-subtitle">Archives & stream highlights</div>
       </div>
-      <div class="vod-grid">
-        <a href="https://www.twitch.tv/videos/2907074504" target="_blank" class="vod-card">
-          <div class="vod-thumb">
-            <img src="vod1.png" alt="Stream Thumbnail" onerror="handleImageError(this, 'Stream VOD')">
-            <div class="vod-play-btn">
-              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-          <div class="vod-details">
-            <div class="vod-tag">Recent Stream</div>
-            <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
-            <p class="vod-desc">PEAK gameplay & chat interactions</p>
-          </div>
-        </a>
 
-        <a href="https://x.com/BritishFilian/status/2116528371215524075?a=FftoAxekyXIo9T4qnzI&s=20" target="_blank" class="vod-card">
-          <div class="vod-thumb">
-            <img src="vod2.png" alt="Stream Thumbnail" onerror="handleImageError(this, 'Karaoke VOD')">
-            <div class="vod-play-btn">
-              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <div id="vods-pane" class="gallery-view-pane">
+        <div class="section-header">
+          <h2 class="section-title">Explore Broadcasts</h2>
+          <div class="section-subtitle">Archives & stream highlights</div>
+        </div>
+        <div class="vod-grid">
+          <a href="https://www.twitch.tv/videos/2907074504" target="_blank" class="vod-card">
+            <div class="vod-thumb">
+              <img src="vod1.png" alt="Stream Thumbnail" onerror="handleImageError(this, 'Stream VOD')">
+              <div class="vod-play-btn">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
             </div>
-          </div>
-          <div class="vod-details">
-            <div class="vod-tag">Highlight</div>
-            <h3 class="vod-title">Karaoke Highlights</h3>
-            <p class="vod-desc">THVRNE sings "When I'm Gone"</p>
-          </div>
-        </a>
+            <div class="vod-details">
+              <div class="vod-tag">Recent Stream</div>
+              <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
+              <p class="vod-desc">PEAK gameplay & chat interactions</p>
+            </div>
+          </a>
+          <a href="https://x.com/BritishFilian/status/2116528371215524075" target="_blank" class="vod-card">
+            <div class="vod-thumb">
+              <img src="vod2.png" alt="Stream Thumbnail" onerror="handleImageError(this, 'Karaoke VOD')">
+              <div class="vod-play-btn">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+            <div class="vod-details">
+              <div class="vod-tag">Highlight</div>
+              <h3 class="vod-title">Karaoke Highlights</h3>
+              <p class="vod-desc">THVRNE sings "When I'm Gone"</p>
+            </div>
+          </a>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Message Board & Drawing Canvas Section -->
-    <section id="board">
+    <div id="tab-board" class="tab-content">
       <div class="section-header">
         <h2 class="section-title">Message & Canvas Board</h2>
         <div class="section-subtitle">Leave a message or sketch</div>
@@ -1482,37 +1447,28 @@
           <div class="canvas-wrapper">
             <canvas id="drawingCanvas" width="400" height="400"></canvas>
           </div>
-
           <div class="tool-row">
             <span class="tool-label">Color</span>
-            <input type="color" id="brushColor" value="#E2E4F6" style="background:none; border:none; cursor:pointer; height:28px; width:28px;">
-            <button class="btn" style="padding: 2px 8px;" onclick="setColor('#E2E4F6')">Silver</button>
-            <button class="btn" style="padding: 2px 8px;" onclick="setColor('#DFEAFE')">Blue</button>
-            <button class="btn" style="padding: 2px 8px;" onclick="setColor('#000000')">Eraser</button>
+            <input type="color" id="brushColor" value="#E2E4F6" style="background:none; border:none; cursor:pointer; height:24px; width:24px;">
+            <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="setColor('#E2E4F6')">Silver</button>
+            <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="setColor('#DFEAFE')">Blue</button>
+            <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="setColor('#000000')">Eraser</button>
           </div>
-
           <div class="tool-row">
             <span class="tool-label">Size</span>
             <input type="range" id="brushSize" min="1" max="20" value="3" style="flex:1;">
           </div>
-
           <div class="tool-row">
             <button class="btn" onclick="clearCanvas()" style="width:100%;">Clear Canvas</button>
           </div>
-
-          <hr style="border-color: var(--border-subtle); margin: var(--space-2) 0;">
-
           <input type="text" id="postAuthor" class="input-field" placeholder="Your Name / Handle (Optional)">
           <textarea id="postText" class="input-field" placeholder="Write a note..."></textarea>
-          
           <button class="btn btn-primary" onclick="submitPost()">Post Entry</button>
         </div>
 
-        <div class="message-feed" id="messageFeed">
-          <!-- Posts render dynamically here -->
-        </div>
+        <div class="message-feed" id="messageFeed"></div>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer>
@@ -1536,23 +1492,58 @@
   <div class="copy-toast" id="copy-toast">Copied hex code!</div>
 
   <script>
+    const ADMIN_PASSWORD = "thorneadminpass";
     let toastTimeout;
 
-    // Navigation Menu Toggle for Mobile
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
-
-    if (menuToggle && navLinks) {
-      menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
+    function switchMainTab(tabId, btnElement) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
       });
+      const selectedTab = document.getElementById(`tab-${tabId}`);
+      if (selectedTab) {
+        selectedTab.classList.add('active');
+      }
 
-      // Close menu when a link is clicked
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('active');
+      document.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchModelPane(paneId, btnElement) {
+      document.querySelectorAll('.model-view-pane').forEach(pane => {
+        pane.classList.remove('active');
+      });
+      const targetPane = document.getElementById(paneId);
+      if (targetPane) {
+        targetPane.classList.add('active');
+      }
+
+      if (btnElement && btnElement.parentElement) {
+        btnElement.parentElement.querySelectorAll('.gallery-sub-btn').forEach(btn => {
+          btn.classList.remove('active');
         });
+        btnElement.classList.add('active');
+      }
+    }
+
+    function switchGalleryPane(paneId, btnElement) {
+      document.querySelectorAll('.gallery-view-pane').forEach(pane => {
+        pane.classList.remove('active');
       });
+      const targetPane = document.getElementById(paneId);
+      if (targetPane) {
+        targetPane.classList.add('active');
+      }
+
+      if (btnElement && btnElement.parentElement) {
+        btnElement.parentElement.querySelectorAll('.gallery-sub-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        btnElement.classList.add('active');
+      }
     }
 
     function copyToClipboard(text) {
@@ -1631,13 +1622,11 @@
       });
     }
 
-    // --- Message Board & Drawing Canvas Logic ---
     const canvas = document.getElementById('drawingCanvas');
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
     let hasDrawn = false;
 
-    // Set canvas initial background
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -1706,14 +1695,12 @@
       hasDrawn = false;
     }
 
-    // --- Supabase Client & Cloud Sync Logic (Using Safe Namespace) ---
     const SUPABASE_URL = "https://yxzvruzxeynfgpctfrue.supabase.co";
     const SUPABASE_KEY = "sb_publishable_7Jj7AE89seaxQLiyw08uCQ_id8C6FqZ";
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     let boardPosts = [];
 
-    // Fetch posts from Supabase database so all devices can see them
     async function renderPosts() {
       const { data: posts, error } = await db
         .from('board_posts')
@@ -1758,7 +1745,6 @@
       });
     }
 
-    // Submit new post to Supabase
     window.submitPost = async function() {
       const author = document.getElementById('postAuthor').value.trim() || 'Anonymous';
       const text = document.getElementById('postText').value.trim();
@@ -1785,7 +1771,6 @@
         return;
       }
 
-      // Clear input form & canvas
       document.getElementById('postText').value = '';
       document.getElementById('postAuthor').value = '';
       clearCanvas();
@@ -1793,7 +1778,6 @@
       renderPosts();
     };
 
-    // Delete post from Supabase (Admin action)
     window.deletePost = async function(id) {
       const { error } = await db
         .from('board_posts')
@@ -1822,7 +1806,6 @@
       });
     }
 
-    // Hidden Admin Mode Handler
     window.promptAdminMode = function() {
       if (document.body.classList.contains('admin-mode')) {
         document.body.classList.remove('admin-mode');
@@ -1839,14 +1822,12 @@
       }
     };
 
-    // Admin keyboard shortcut (Ctrl + Shift + A)
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
         window.promptAdminMode();
       }
     });
 
-    // Initialize board on page load
     renderPosts();
   </script>
 </body>
