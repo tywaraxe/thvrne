@@ -906,8 +906,17 @@
 
     @media (max-width: 992px) {
       .side-by-side-layout {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column-reverse;
         gap: var(--space-8);
+      }
+
+      .side-by-side-info {
+        width: 100%;
+      }
+
+      .hero-image-wrapper {
+        width: 100%;
       }
 
       .palette-grid {
@@ -1013,7 +1022,7 @@
           </div>
 
           <div class="section-header" style="margin-top: var(--space-6); margin-bottom: var(--space-4);">
-            <h2 class="section-title" style="font-size: var(--text-lg);">Color Palette</h2>
+            <h2 class="section-title" style="font-size: var(--text-lg);">Colour Palette</h2>
           </div>
           <div class="palette-grid" style="margin-bottom: 0;">
             <div class="swatch-card" onclick="copyHex('#E2E4F6')">
