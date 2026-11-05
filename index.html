@@ -72,7 +72,7 @@
     .container {
       max-width: 1300px;
       margin: 0 auto;
-      padding: var(--space-8);
+      padding: var(--space-8) var(--space-8) var(--space-2) var(--space-8); /* Reduced bottom padding */
     }
 
     .brand-header {
@@ -181,7 +181,7 @@
       grid-template-columns: 1fr 1fr;
       gap: var(--space-12);
       align-items: center;
-      margin-bottom: var(--space-16);
+      margin-bottom: var(--space-6); /* Reduced from space-16 to bring footer closer */
     }
 
     .side-by-side-info {
@@ -262,7 +262,7 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: var(--space-4);
-      margin-bottom: var(--space-16);
+      margin-bottom: var(--space-4); /* Reduced from space-16 */
     }
 
     .swatch-card {
@@ -515,6 +515,18 @@
       gap: var(--space-6);
       margin-bottom: var(--space-16);
     }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .active-model-img {
+      max-height: 500px;
+      width: auto;
+      object-fit: contain;
+      cursor: zoom-in;
+      animation: fadeIn 0.4s ease forwards;
+    }
 
     .vod-card {
       border: 1px solid var(--border-subtle);
@@ -758,6 +770,20 @@
     body.admin-mode .admin-delete-btn {
       display: block;
     }
+    @keyframes paneFadeIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(6px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    .animate-fade {
+      animation: paneFadeIn 0.4s ease forwards;
+    }
 
     .admin-indicator {
       display: none;
@@ -814,27 +840,29 @@
       stroke-width: 1.5;
     }
 
-   footer {
+    footer {
       width: 100%;
       overflow-x: hidden;
-      padding: var(--space-8) var(--space-4);
+      padding: var(--space-4);
       box-sizing: border-box;
     }
 
     .footer-wrapper {
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      gap: var(--space-4);
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-3);
       width: 100%;
       max-width: 100%;
+      text-align: center;
     }
 
     .footer-links {
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
-      gap: var(--space-4);
+      gap: var(--space-6);
       font-family: var(--font-sans);
       font-size: var(--text-xs);
       letter-spacing: 2px;
@@ -971,6 +999,100 @@
         align-items: flex-start;
       }
     }
+    .model-interactive-layout {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: var(--space-8);
+      align-items: center;
+      margin-bottom: var(--space-16);
+    }
+
+    .model-thumbnails-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .model-thumb-btn {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      border: 2px solid var(--border-subtle);
+      background: var(--accent-obsidian);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .model-thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .model-thumb-btn:hover {
+      border-color: var(--accent-violet);
+      transform: scale(1.05);
+    }
+
+    .model-thumb-btn.active {
+      border-color: var(--accent-lavender);
+      box-shadow: 0 0 12px rgba(226, 228, 246, 0.25);
+    }
+
+    .model-display-stage {
+      border: none;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      min-height: 520px;
+      justify-content: center;
+    }
+
+    .active-model-img {
+      max-height: 500px;
+      width: auto;
+      object-fit: contain;
+      cursor: zoom-in;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .active-model-tag {
+      position: absolute;
+      bottom: var(--space-4);
+      left: var(--space-4);
+      font-family: var(--font-editorial);
+      font-style: italic;
+      color: var(--accent-violet);
+      font-size: var(--text-sm);
+    }
+
+    @media (max-width: 768px) {
+      .model-interactive-layout {
+        grid-template-columns: 1fr;
+      }
+      .model-thumbnails-col {
+        flex-direction: row;
+        justify-content: center;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: var(--space-2);
+      }
+      .model-thumb-btn {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+      }
+    }
   </style>
   <link rel="icon" type="image/png" href="icon.png">
 </head>
@@ -1072,48 +1194,35 @@
           <h2 class="section-title">Model Showcase</h2>
           <div class="section-subtitle">Variations & outfits</div>
         </div>
-        <div class="models-grid">
-          <div class="model-card">
-            <div class="model-img-wrapper">
-              <img src="main1.png" alt="Original Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Default Model')">
-            </div>
-            <div class="model-tag">Default //</div>
+
+        <div class="model-interactive-layout">
+          <!-- Left Column: Small Thumbnail Buttons -->
+          <div class="model-thumbnails-col">
+            <button class="model-thumb-btn active" onclick="switchActiveModel('main1.png', 'Default // Outfit', this)">
+              <img src="main1.png" alt="Default Model" onerror="handleImageError(this, 'Default')">
+            </button>
+            <button class="model-thumb-btn" onclick="switchActiveModel('main2.png', 'Alt Outfit // Variation', this)">
+              <img src="main2.png" alt="Alt Outfit" onerror="handleImageError(this, 'Alt')">
+            </button>
+            <button class="model-thumb-btn" onclick="switchActiveModel('chibi.png', 'Chibi // Style', this)">
+              <img src="chibi.png" alt="Chibi Model" onerror="handleImageError(this, 'Chibi')">
+            </button>
+            <button class="model-thumb-btn" onclick="switchActiveModel('chibinoglasses.png', 'Chibi w/o Glasses // Style', this)">
+              <img src="chibinoglasses.png" alt="Chibi w/o Glasses" onerror="handleImageError(this, 'No Glasses')">
+            </button>
+            <button class="model-thumb-btn" onclick="switchActiveModel('catthorne1.png', 'Cat Chibi // Style', this)">
+              <img src="catthorne1.png" alt="Cat Chibi Model" onerror="handleImageError(this, 'Cat Chibi')">
+            </button>
           </div>
-          <div class="model-card">
-            <div class="model-img-wrapper">
-              <img src="main2.png" alt="Alt Outfit Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Alt Outfit')">
-            </div>
-            <div class="model-tag">Alt Outfit //</div>
-          </div>
-          <div class="model-card">
-            <div class="model-img-wrapper">
-              <img src="chibi.png" alt="Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Chibi Model')">
-            </div>
-            <div class="model-tag">Chibi //</div>
-          </div>
-          <div class="model-card">
-            <div class="model-img-wrapper">
-              <img src="chibinoglasses.png" alt="Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Chibi w/o Glasses')">
-            </div>
-            <div class="model-tag">Chibi w/o glasses //</div>
-          </div>
-          <div class="model-card">
-            <div class="model-img-wrapper">
-              <img src="catthorne1.png" alt="Cat Chibi Model" class="model-card-img zoomable" onerror="handleImageError(this, 'Cat Chibi')">
-            </div>
-            <div class="model-tag">Cat Chibi //</div>
-          </div>
-          <div class="model-card">
-            <div class="model-img-wrapper">
-              <div class="image-fallback">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-                <span>Upcoming Outfit in Development</span>
-              </div>
-            </div>
-            <div class="model-tag">In Development //</div>
+
+          <!-- Right Column: Main Display Stage -->
+          <div class="model-display-stage">
+            <img id="mainModelDisplay" src="main1.png" alt="Selected Model" class="active-model-img zoomable" onerror="handleImageError(this, 'Active Model')">
+            <div id="mainModelTag" class="active-model-tag">Default // Outfit</div>
           </div>
         </div>
       </div>
+
 
       <div id="refsheet-pane" class="model-view-pane">
         <div class="section-header">
@@ -1526,11 +1635,11 @@
 
     function switchModelPane(paneId, btnElement) {
       document.querySelectorAll('.model-view-pane').forEach(pane => {
-        pane.classList.remove('active');
+        pane.classList.remove('active', 'animate-fade');
       });
       const targetPane = document.getElementById(paneId);
       if (targetPane) {
-        targetPane.classList.add('active');
+        targetPane.classList.add('active', 'animate-fade');
       }
 
       if (btnElement && btnElement.parentElement) {
@@ -1543,11 +1652,11 @@
 
     function switchGalleryPane(paneId, btnElement) {
       document.querySelectorAll('.gallery-view-pane').forEach(pane => {
-        pane.classList.remove('active');
+        pane.classList.remove('active', 'animate-fade');
       });
       const targetPane = document.getElementById(paneId);
       if (targetPane) {
-        targetPane.classList.add('active');
+        targetPane.classList.add('active', 'animate-fade');
       }
 
       if (btnElement && btnElement.parentElement) {
@@ -1833,6 +1942,34 @@
         showToast("Incorrect Password");
       }
     };
+    function switchActiveModel(imageSrc, tagText, btnElement) {
+      const displayImg = document.getElementById('mainModelDisplay');
+      const displayTag = document.getElementById('mainModelTag');
+
+      if (displayImg) {
+        // 暫時移除動畫屬性以便重新觸發
+        displayImg.style.animation = 'none';
+        displayImg.offsetHeight; // 觸發瀏覽器重新繪製 (reflow)
+        displayImg.style.animation = null;
+        
+        displayImg.src = imageSrc;
+      }
+      
+      if (displayTag) {
+        displayTag.textContent = tagText;
+      }
+
+      // 更新按鈕選取狀態
+      const container = btnElement.parentElement;
+      if (container) {
+        container.querySelectorAll('.model-thumb-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+      }
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+    }
 
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
