@@ -72,7 +72,7 @@
     .container {
       max-width: 1300px;
       margin: 0 auto;
-      padding: var(--space-8) var(--space-8) var(--space-2) var(--space-8); /* Reduced bottom padding */
+      padding: var(--space-8) var(--space-8) var(--space-2) var(--space-8);
     }
 
     .brand-header {
@@ -181,7 +181,7 @@
       grid-template-columns: 1fr 1fr;
       gap: var(--space-12);
       align-items: center;
-      margin-bottom: var(--space-6); /* Reduced from space-16 to bring footer closer */
+      margin-bottom: var(--space-6);
     }
 
     .side-by-side-info {
@@ -262,7 +262,7 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: var(--space-4);
-      margin-bottom: var(--space-4); /* Reduced from space-16 */
+      margin-bottom: var(--space-4);
     }
 
     .swatch-card {
@@ -432,10 +432,6 @@
       font-size: var(--text-xs);
       letter-spacing: 1.5px;
       text-transform: uppercase;
-    }
-
-    .art-tag-banner hover {
-      color: var(--accent-rose);
     }
 
     .art-tag-banner svg {
@@ -1135,7 +1131,7 @@
 
   <main class="container">
     <div class="brand-header">
-      <h1 class="brand-title" id="toggleNameTitle" title="Click to toggle hidden name">THVRNE</h1>
+      <h1 class="brand-title" id="toggleNameTitle" title="Click 10 times for an easter egg">THVRNE</h1>
       <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge">
         <span class="status-dot"></span>
         TWITCH.TV/THVRNE
@@ -1745,11 +1741,17 @@
 
     const titleElement = document.getElementById('toggleNameTitle');
     const primaryName = "THVRNE";
-    const hiddenName = "THORNE";
+    const hiddenName = "THRONE";
+    let clickCount = 0;
 
     if (titleElement) {
       titleElement.addEventListener('click', () => {
-        titleElement.textContent = titleElement.textContent === primaryName ? hiddenName : primaryName;
+        clickCount++;
+        if (clickCount >= 10) {
+          titleElement.textContent = titleElement.textContent === primaryName ? hiddenName : primaryName;
+          showToast(`Easter Egg Unlocked: ${titleElement.textContent}!`);
+          clickCount = 0;
+        }
       });
     }
 
