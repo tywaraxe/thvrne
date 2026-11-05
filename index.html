@@ -950,10 +950,6 @@
         width: 100%;
       }
 
-      .palette-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
       .models-grid, .fanart-grid, .meme-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -966,6 +962,45 @@
         grid-template-columns: 1fr;
       }
     }
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+
+    @media (max-width: 992px) {
+      .palette-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: var(--space-2);
+        padding-bottom: var(--space-2);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .palette-grid::-webkit-scrollbar {
+        display: none;
+      }
+      .palette-grid .swatch-card {
+        flex: 0 0 calc(20% - var(--space-2));
+        min-width: 60px;
+        padding: var(--space-1);
+      }
+      .palette-grid .swatch-preview {
+        height: 36px;
+        margin-bottom: 2px;
+      }
+      .palette-grid .swatch-title {
+        font-size: 0.55rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .palette-grid .swatch-code {
+        font-size: 0.55rem;
+      }
+    }
 
     @media (max-width: 600px) {
       .container {
@@ -976,7 +1011,7 @@
         letter-spacing: 3px;
       }
 
-      .palette-grid, .models-grid, .fanart-grid, .meme-grid {
+      .models-grid, .fanart-grid, .meme-grid {
         grid-template-columns: 1fr;
         gap: var(--space-4);
       }
@@ -1118,7 +1153,7 @@
       <section class="side-by-side-layout">
         <div class="side-by-side-info">
           <div class="section-header">
-            <h2 class="section-title">Specifications</h2>
+            <h2 class="section-title">Specifications ✦</h2>
             <div class="section-subtitle">a delicate ball-jointed doll brought to 'life'</div>
           </div>
           <div class="specs-grid">
@@ -1147,7 +1182,7 @@
           </div>
 
           <div class="section-header" style="margin-top: var(--space-6); margin-bottom: var(--space-4);">
-            <h2 class="section-title" style="font-size: var(--text-lg);">Colour Palette</h2>
+            <h2 class="section-title" style="font-size: var(--text-lg);">Colour Palette †</h2>
           </div>
           <div class="palette-grid" style="margin-bottom: 0;">
             <div class="swatch-card" onclick="copyHex('#E2E4F6')">
@@ -1947,9 +1982,8 @@
       const displayTag = document.getElementById('mainModelTag');
 
       if (displayImg) {
-        // 暫時移除動畫屬性以便重新觸發
         displayImg.style.animation = 'none';
-        displayImg.offsetHeight; // 觸發瀏覽器重新繪製 (reflow)
+        displayImg.offsetHeight;
         displayImg.style.animation = null;
         
         displayImg.src = imageSrc;
@@ -1959,7 +1993,6 @@
         displayTag.textContent = tagText;
       }
 
-      // 更新按鈕選取狀態
       const container = btnElement.parentElement;
       if (container) {
         container.querySelectorAll('.model-thumb-btn').forEach(btn => {
