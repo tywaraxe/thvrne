@@ -1131,7 +1131,7 @@
 
   <main class="container">
     <div class="brand-header">
-      <h1 class="brand-title" id="toggleNameTitle" title="Click 10 times for an easter egg">THVRNE</h1>
+      <h1 class="brand-title" id="toggleNameTitle" title="Click to toggle or click 10 times for easter egg">THVRNE</h1>
       <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge">
         <span class="status-dot"></span>
         TWITCH.TV/THVRNE
@@ -1538,7 +1538,7 @@
             <div class="meme-title">What did she see?</div>
             <div class="meme-caption">@416akane</div>
           </div>
-        </div>
+            </div>
         <div class="meme-card">
           <div class="meme-img-box">
             <img src="meme/whyshesocutechibi.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
@@ -1712,7 +1712,7 @@
         try {
           document.execCommand('copy');
         } catch (error) {
-          console.error("Copy failed", error);
+          console.error("Copy Firth", error);
         }
         document.body.removeChild(textArea);
       }
@@ -1740,17 +1740,31 @@
     }
 
     const titleElement = document.getElementById('toggleNameTitle');
-    const primaryName = "THVRNE";
-    const hiddenName = "THRONE";
+    const names = ["THVRNE", "THORNE", "THRONE"];
+    let nameIndex = 0;
     let clickCount = 0;
 
     if (titleElement) {
       titleElement.addEventListener('click', () => {
         clickCount++;
-        if (clickCount >= 10) {
-          titleElement.textContent = titleElement.textContent === primaryName ? hiddenName : primaryName;
-          showToast(`Easter Egg Unlocked: ${titleElement.textContent}!`);
-          clickCount = 0;
+        if (nameIndex === 2) {
+          // Once it has changed to THRONE, stay on THRONE for the next 10 clicks
+          if (clickCount >= 10) {
+            nameIndex = 0; // 11th press resets back to THVRNE
+            titleElement.textContent = names[nameIndex];
+            clickCount = 0;
+          }
+        } else {
+          // Normal cycling between THVRNE and THORNE
+          if (clickCount >= 10) {
+            nameIndex = 2; // Jump to THRONE easter egg on the 10th press
+            titleElement.textContent = names[nameIndex];
+            showToast("Easter Egg Unlocked: THRONE!");
+            clickCount = 0;
+          } else {
+            nameIndex = (nameIndex + 1) % 2;
+            titleElement.textContent = names[nameIndex];
+          }
         }
       });
     }
