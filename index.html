@@ -1087,14 +1087,57 @@
       position: relative;
       min-height: 520px;
       justify-content: center;
+      width: 100%;
+      overflow: hidden;
     }
 
     .active-model-img {
-      max-height: 500px;
-      width: auto;
+      max-height: 480px;
+      width: 100%;
+      height: auto;
       object-fit: contain;
       cursor: zoom-in;
       animation: fadeIn 0.3s ease forwards;
+    }
+
+    @media (max-width: 768px) {
+      .model-interactive-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+      .model-thumbnails-col {
+        flex-direction: row;
+        justify-content: flex-start;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: var(--space-2);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .model-thumbnails-col::-webkit-scrollbar {
+        display: none;
+      }
+      .model-thumb-btn {
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+        flex-shrink: 0;
+      }
+      .model-display-stage {
+        min-height: 380px;
+        width: 100%;
+      }
+      .active-model-img {
+        max-height: 400px;
+        width: 100%;
+        object-fit: contain;
+      }
+      .active-model-tag {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: var(--space-2);
+      }
     }
 
     .active-model-tag {
