@@ -47,6 +47,7 @@
       --text-xl: 1.75rem;
       --text-2xl: 2.5rem;
       --text-hero: clamp(2.2rem, 6vw, 3.8rem);
+      
     }
 
     * {
@@ -57,6 +58,13 @@
 
     body {
       background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at center, rgba(10, 9, 13, 0.75) 0%, rgba(10, 9, 13, 0.95) 85%),
+        url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       color: var(--accent-rose);
       font-family: var(--font-sans);
       line-height: 1.6;
@@ -1270,7 +1278,6 @@
         </div>
 
         <div class="model-interactive-layout">
-          <!-- Left Column: Small Thumbnail Buttons -->
           <div class="model-thumbnails-col">
             <button class="model-thumb-btn active" onclick="switchActiveModel('main1.png', 'Default // Outfit', this)">
               <img src="main1.png" alt="Default Model" onerror="handleImageError(this, 'Default')">
@@ -1289,14 +1296,12 @@
             </button>
           </div>
 
-          <!-- Right Column: Main Display Stage -->
           <div class="model-display-stage">
             <img id="mainModelDisplay" src="main1.png" alt="Selected Model" class="active-model-img zoomable" onerror="handleImageError(this, 'Active Model')">
             <div id="mainModelTag" class="active-model-tag">Default // Outfit</div>
           </div>
         </div>
       </div>
-
 
       <div id="refsheet-pane" class="model-view-pane">
         <div class="section-header">
@@ -1791,16 +1796,14 @@
       titleElement.addEventListener('click', () => {
         clickCount++;
         if (nameIndex === 2) {
-          // Once it has changed to THRONE, stay on THRONE for the next 10 clicks
           if (clickCount >= 10) {
-            nameIndex = 0; // 11th press resets back to THVRNE
+            nameIndex = 0;
             titleElement.textContent = names[nameIndex];
             clickCount = 0;
           }
         } else {
-          // Normal cycling between THVRNE and THORNE
           if (clickCount >= 10) {
-            nameIndex = 2; // Jump to THRONE easter egg on the 10th press
+            nameIndex = 2;
             titleElement.textContent = names[nameIndex];
             showToast("Easter Egg Unlocked: THRONE!");
             clickCount = 0;
@@ -2036,6 +2039,7 @@
         showToast("Incorrect Password");
       }
     };
+
     function switchActiveModel(imageSrc, tagText, btnElement) {
       const displayImg = document.getElementById('mainModelDisplay');
       const displayTag = document.getElementById('mainModelTag');
