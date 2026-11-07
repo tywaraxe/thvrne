@@ -55,36 +55,35 @@
       padding: 0;
     }
 
-    body {
-      background-color: var(--BG-DARK);
-      color: var(--ACCENT-ROSE);
-      font-family: var(--FONT-SANS);
-      line-height: 1.6;
-      overflow-x: hidden;
-      text-align: left;
+    html, body {
+      height: 100vh;
+      overflow: hidden;
     }
 
-    /* Background container that acts like a fixed background without the mobile scroll glitch */
-    .fixed-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100dvh; /* Uses dynamic viewport height so it adapts to different phones automatically */
-      z-index: -99;
+    body {
       background-color: var(--BG-DARK);
       background-image: 
         radial-gradient(circle at center, rgba(10, 9, 13, 0.75) 0%, rgba(10, 9, 13, 0.95) 85%),
         url('background.png');
-      background-size: cover;     /* Automatically scales to cover any phone screen size */
-      background-position: center; /* Keeps the center framed nicely */
+      background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
-      pointer-events: none;       /* Ensures it never blocks clicks */
+      color: var(--ACCENT-ROSE);
+      font-family: var(--FONT-SANS);
+      line-height: 1.6;
+      text-align: left;
     }
 
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    .scrollable-viewport {
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
     }
 
     .container {
@@ -892,6 +891,31 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      
+      .fanart-grid, .meme-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .art-card.landscape {
+        grid-column: span 2;
+      }
+      .vod-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .fanart-grid, .meme-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .art-card.landscape {
+        grid-column: span 1 !important;
+      }
+      .vod-card {
+        flex-direction: column;
+      }
+      .vod-thumb, .vod-details {
+        width: 100% !important;
+      }
     }
 
     .model-interactive-layout {
@@ -1031,508 +1055,510 @@
   <link rel="icon" type="image/png" href="icon.png">
 </head>
 <body>
-<div class="fixed-bg"></div>
-  <main class="container">
-    <div class="top-header-row">
-      <nav class="main-nav-strip">
-        <button class="pill-btn active" onclick="SWITCHMAINTAB('overview', this)">OVERVIEW</button>
-        <button class="pill-btn" onclick="SWITCHMAINTAB('models', this)">MODELS</button>
-        <button class="pill-btn" onclick="SWITCHMAINTAB('gallery', this)">GALLERY</button>
-        <button class="pill-btn" onclick="SWITCHMAINTAB('board', this)">BOARD</button>
-      </nav>
-      <div class="header-copy">&copy; 2026 THVRNE. ALL RIGHTS RESERVED.</div>
-    </div>
 
-    <div id="tab-overview" class="tab-content active">
-      <section class="overview-layout">
-        <div class="split-left">
-          <img src="main.png" alt="THVRNE FULL MODEL" class="hero-img zoomable" onerror="HANDLEIMAGEERROR(this, 'THVRNE FULL MODEL')">
+  <div class="scrollable-viewport" id="SCROLLABLEVIEWPORT">
+    <main class="container">
+      <div class="top-header-row">
+        <nav class="main-nav-strip">
+          <button class="pill-btn active" onclick="SWITCHMAINTAB('overview', this)">OVERVIEW</button>
+          <button class="pill-btn" onclick="SWITCHMAINTAB('models', this)">MODELS</button>
+          <button class="pill-btn" onclick="SWITCHMAINTAB('gallery', this)">GALLERY</button>
+          <button class="pill-btn" onclick="SWITCHMAINTAB('board', this)">BOARD</button>
+        </nav>
+        <div class="header-copy">&copy; 2026 THVRNE. ALL RIGHTS RESERVED.</div>
+      </div>
+
+      <div id="tab-overview" class="tab-content active">
+        <section class="overview-layout">
+          <div class="split-left">
+            <img src="main.png" alt="THVRNE FULL MODEL" class="hero-img zoomable" onerror="HANDLEIMAGEERROR(this, 'THVRNE FULL MODEL')">
+          </div>
+
+          <div class="split-right">
+            <div class="brand-header-area">
+              <h1 class="brand-title" id="TOGGLENAMETITLE" title="CLICK TO TOGGLE OR CLICK 10 TIMES FOR EASTER EGG">THVRNE</h1>
+              <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge" id="TWITCHSTATUSBADGE">
+                <span class="status-dot" id="LIVEDOT"></span>
+                <span id="LIVESTATUSTEXT">TWITCH.TV/THVRNE</span>
+              </a>
+            </div>
+
+            <div class="section-header">
+              <h2 class="section-title">SPECIFICATIONS ✦</h2>
+              <div class="section-subtitle">a delicate ball-jointed doll brought to 'life'</div>
+            </div>
+            <div class="specs-grid">
+              <div class="spec-card">
+                <div class="spec-label">Placeholder</div>
+                <div class="spec-value">PLACEHOLDER</div>
+              </div>
+              <div class="spec-card">
+                <div class="spec-label">Placeholder</div>
+                <div class="spec-value">PLACEHOLDER</div>
+              </div>
+              <div class="spec-card">
+                <div class="spec-label">Placeholder</div>
+                <div class="spec-value">PLACEHOLDER</div>
+              </div>
+              <div class="spec-card">
+                <div class="spec-label">Placeholder</div>
+                <div class="spec-value">PLACEHOLDER</div>
+              </div>
+            </div>
+
+            <div class="japanese-quote-container">
+              <div class="japanese-quote-bar"></div>
+              <div class="japanese-quote-text">"呼吸を覚えた 教わってないけど"</div>
+            </div>
+
+            <div class="section-header">
+              <h2 class="section-title">COLOUR PALETTE †</h2>
+            </div>
+            <div class="palette-grid">
+              <div class="swatch-card" onclick="COPYHEX('#E2E4F6')">
+                <div class="swatch-preview" style="background: #E2E4F6;"></div>
+                <div class="swatch-title">PORCELAIN SILVER</div>
+                <div class="swatch-code">#E2E4F6</div>
+              </div>
+              <div class="swatch-card" onclick="COPYHEX('#DFEAFE')">
+                <div class="swatch-preview" style="background: #DFEAFE;"></div>
+                <div class="swatch-title">SEASHELL BLUE</div>
+                <div class="swatch-code">#DFEAFE</div>
+              </div>
+              <div class="swatch-card" onclick="COPYHEX('#26242B')">
+                <div class="swatch-preview" style="background: #26242B;"></div>
+                <div class="swatch-title">OBSIDIAN VELVET</div>
+                <div class="swatch-code">#26242B</div>
+              </div>
+              <div class="swatch-card" onclick="COPYHEX('#F5F4FA')">
+                <div class="swatch-preview" style="background: #F5F4FA;"></div>
+                <div class="swatch-title">WHITE ROSE</div>
+                <div class="swatch-code">#F5F4FA</div>
+              </div>
+              <div class="swatch-card" onclick="COPYHEX('#B7B9C7')">
+                <div class="swatch-preview" style="background: #B7B9C7;"></div>
+                <div class="swatch-title">ANTIQUE SILVER</div>
+                <div class="swatch-code">#B7B9C7</div>
+              </div>
+            </div>
+
+            <div class="footer-links" style="justify-content: flex-start; margin-top: var(--SPACE-2);">
+              <a href="https://twitch.tv/thvrne" target="_blank">TWITCH</a>
+              <a href="https://x.com/thvrnet" target="_blank">TWITTER / X</a>
+              <a href="https://www.youtube.com/@thVrneT" target="_blank">YOUTUBE</a>
+              <a href="https://www.tiktok.com/@thvrnevt" target="_blank">TIKTOK</a>
+              <a href="https://www.instagram.com/thvrnevt/" target="_blank">INSTAGRAM</a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="tab-models" class="tab-content">
+        <nav class="gallery-sub-nav">
+          <button class="gallery-sub-btn active" onclick="SWITCHMODELPANE('showcase-pane', this)">MODEL SHOWCASE</button>
+          <button class="gallery-sub-btn" onclick="SWITCHMODELPANE('refsheet-pane', this)">REFERENCE SHEET</button>
+        </nav>
+
+        <div id="showcase-pane" class="model-view-pane active">
+          <div class="section-header">
+            <h2 class="section-title">MODEL SHOWCASE</h2>
+            <div class="section-subtitle">Variations & outfits</div>
+          </div>
+
+          <div class="model-interactive-layout">
+            <div class="model-thumbnails-col">
+              <button class="model-thumb-btn active" onclick="SWITCHACTIVEMODEL('main1.png', 'Default // Outfit', this)">
+                <img src="main1.png" alt="DEFAULT MODEL" onerror="HANDLEIMAGEERROR(this, 'DEFAULT')">
+              </button>
+              <button class="model-thumb-btn" onclick="SWITCHACTIVEMODEL('main2.png', 'Alt Outfit // Variation', this)">
+                <img src="main2.png" alt="ALT OUTFIT" onerror="HANDLEIMAGEERROR(this, 'ALT')">
+              </button>
+              <button class="model-thumb-btn" onclick="SWITCHACTIVEMODEL('chibi.png', 'Chibi // Style', this)">
+                <img src="chibi.png" alt="CHIBI MODEL" onerror="HANDLEIMAGEERROR(this, 'CHIBI')">
+              </button>
+              <button class="model-thumb-btn" onclick="SWITCHACTIVEMODEL('chibinoglasses.png', 'Chibi w/o Glasses // Style', this)">
+                <img src="chibinoglasses.png" alt="CHIBI W/O GLASSES" onerror="HANDLEIMAGEERROR(this, 'NO GLASSES')">
+              </button>
+              <button class="model-thumb-btn" onclick="SWITCHACTIVEMODEL('catthorne1.png', 'Cat Chibi // Style', this)">
+                <img src="catthorne1.png" alt="CAT CHIBI MODEL" onerror="HANDLEIMAGEERROR(this, 'CAT CHIBI')">
+              </button>
+            </div>
+
+            <div class="model-display-stage">
+              <img id="MAINMODELDISPLAY" src="main1.png" alt="SELECTED MODEL" class="active-model-img zoomable" onerror="HANDLEIMAGEERROR(this, 'ACTIVE MODEL')">
+              <div id="MAINMODELTAG" class="active-model-tag">Default // Outfit</div>
+            </div>
+          </div>
         </div>
 
-        <div class="split-right">
-          <div class="brand-header-area">
-            <h1 class="brand-title" id="TOGGLENAMETITLE" title="CLICK TO TOGGLE OR CLICK 10 TIMES FOR EASTER EGG">THVRNE</h1>
-            <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge" id="TWITCHSTATUSBADGE">
-              <span class="status-dot" id="LIVEDOT"></span>
-              <span id="LIVESTATUSTEXT">TWITCH.TV/THVRNE</span>
+        <div id="refsheet-pane" class="model-view-pane">
+          <div class="section-header">
+            <h2 class="section-title">REFERENCE SHEET</h2>
+            <div class="section-subtitle">Character design & details</div>
+          </div>
+          <div class="refsheet-card">
+            <div class="refsheet-img-wrapper">
+              <img src="fullref.png" alt="THVRNE FULL REFERENCE SHEET" class="refsheet-img zoomable" onerror="HANDLEIMAGEERROR(this, 'REFERENCE SHEET')">
+            </div>
+            <div class="art-info">
+              <div class="art-artist">TRINITTOLLUENE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-gallery" class="tab-content">
+        <nav class="gallery-sub-nav">
+          <button class="gallery-sub-btn active" onclick="SWITCHGALLERYPANE('fanart-pane', this)">ART GALLERY</button>
+          <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('memes-pane', this)">MEME GALLERY</button>
+          <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('vods-pane', this)">VOD BROADCASTS</button>
+        </nav>
+
+        <div id="fanart-pane" class="gallery-view-pane active">
+          <div class="section-header">
+            <h2 class="section-title">ART GALLERY</h2>
+            <div class="art-tag-banner" onclick="COPYTAG('#GardenofThorne')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Official Tag // #GardenofThorne</span>
+            </div>
+          </div>
+          <div class="fanart-grid">
+            <div class="art-card">
+              <div class="art-img-box">
+                <img src="satera723.png" alt="ARTWORK BY SATERA723" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY SATERA723')">
+              </div>
+              <div class="art-info">
+                <div class="art-artist">ラテ</div>
+                <div class="art-handle">@SATERA723</div>
+              </div>
+            </div>
+            <div class="art-card landscape">
+              <div class="art-img-box">
+                <img src="artwork1.png" alt="ARTWORK BY TSUYUCHA" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY TSUYUCHA')">
+              </div>
+              <div class="art-info">
+                <div class="art-artist">露茶◆TSUYUCHA</div>
+                <div class="art-handle">@TSUYUTYA</div>
+              </div>
+            </div>
+            <div class="art-card landscape">
+              <div class="art-img-box">
+                <img src="3900352-2.png" alt="ARTWORK BY KOUCHANTHREE" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY KOUCHANTHREE')">
+              </div>
+              <div class="art-info">
+                <div class="art-artist">こうちゃん</div>
+                <div class="art-handle">@KOUCHANTHREE</div>
+              </div>
+            </div>
+            <div class="art-card">
+              <div class="art-img-box">
+                <img src="tsuyutya.png" alt="ARTWORK BY TSUYUCHA" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY TSUYUCHA')">
+              </div>
+              <div class="art-info">
+                <div class="art-artist">露茶◆TSUYUCHA</div>
+                <div class="art-handle">@TSUYUTYA</div>
+              </div>
+            </div>
+            <div class="art-card">
+              <div class="art-img-box">
+                <img src="CD3BD835.jpg" alt="ARTWORK BY AXIUM" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY AXIUM')">
+              </div>
+              <div class="art-info">
+                <div class="art-artist">AXIUM</div>
+                <div class="art-handle">@ANGELOFTHEAXIS</div>
+              </div>
+            </div>
+            <div class="art-card">
+              <div class="art-img-box">
+                <img src="15coro_aaa.png" alt="ARTWORK BY NACHIKO" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY NACHIKO')">
+              </div>
+              <div class="art-info">
+                <div class="art-artist">なちこ</div>
+                <div class="art-handle">@15CORO_AAA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="memes-pane" class="gallery-view-pane">
+          <div class="section-header">
+            <h2 class="section-title">Meme</h2>
+            <div class="section-subtitle">Chaos archives</div>
+          </div>
+          <div class="meme-grid">
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="IMG_1931.png" alt="meme" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Who is she?</div>
+              <div class="meme-caption">@unknown</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/0is-shakespeare-really-dead1.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Is shakespeare really dead</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/83ef8ec3ec391d7a27db13cb3e812948.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Its me</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/actuallygenius.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Actually Genius</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/astreamertoocute.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Streamer too cute</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/b2g8k0.jpg" alt="Meme" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">POV ure pregnant men</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/bombvsthorne.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Bomb VS Thorne</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/dewedeserve.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Do we deserve</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/doessheknowv3.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Does she know</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/FIRE.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">fire</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/FREMINET.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">FREMINET</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/howdidsheknow.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">How did she know</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/imafffges11.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">free aura</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/IMG_9868.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">new meta</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/low-cortisol-thorne.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">low cortisol</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/realquestion.jpg" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Real Question</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/son.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Son</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/streamermentonpee.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Streamer mention pee</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/thegoat.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">The Goat</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/thornewasright.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">Thorne was right</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/whatdidsheseev4.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">What did she see?</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+              </div>
+          <div class="meme-card">
+            <div class="meme-img-box">
+              <img src="meme/whyshesocutechibi.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
+            </div>
+            <div class="meme-info">
+              <div class="meme-title">why is she so cute</div>
+              <div class="meme-caption">@416akane</div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div id="vods-pane" class="gallery-view-pane">
+          <div class="section-header">
+            <h2 class="section-title">EXPLORE BROADCASTS</h2>
+            <div class="section-subtitle">Archives & stream highlights</div>
+          </div>
+          <div class="vod-grid">
+            <a href="https://www.twitch.tv/videos/2907074504" target="_blank" class="vod-card">
+              <div class="vod-thumb">
+                <img src="vod1.png" alt="STREAM THUMBNAIL" onerror="HANDLEIMAGEERROR(this, 'STREAM VOD')">
+                <div class="vod-play-btn">
+                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+              <div class="vod-details">
+                <div class="vod-tag">Recent Stream</div>
+                <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
+                <p class="vod-desc">PEAK GAMEPLAY & CHAT INTERACTIONS</p>
+              </div>
+            </a>
+            <a href="https://x.com/BritishFilian/status/2116528371215524075" target="_blank" class="vod-card">
+              <div class="vod-thumb">
+                <img src="vod2.png" alt="STREAM THUMBNAIL" onerror="HANDLEIMAGEERROR(this, 'KARAOKE VOD')">
+                <div class="vod-play-btn">
+                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+              <div class="vod-details">
+                <div class="vod-tag">Highlight</div>
+                <h3 class="vod-title">KARAOKE HIGHLIGHTS</h3>
+                <p class="vod-desc">THVRNE SINGS "WHEN I'M GONE"</p>
+              </div>
             </a>
           </div>
-
-          <div class="section-header">
-            <h2 class="section-title">SPECIFICATIONS ✦</h2>
-            <div class="section-subtitle">a delicate ball-jointed doll brought to 'life'</div>
-          </div>
-          <div class="specs-grid">
-            <div class="spec-card">
-              <div class="spec-label">Placeholder</div>
-              <div class="spec-value">PLACEHOLDER</div>
-            </div>
-            <div class="spec-card">
-              <div class="spec-label">Placeholder</div>
-              <div class="spec-value">PLACEHOLDER</div>
-            </div>
-            <div class="spec-card">
-              <div class="spec-label">Placeholder</div>
-              <div class="spec-value">PLACEHOLDER</div>
-            </div>
-            <div class="spec-card">
-              <div class="spec-label">Placeholder</div>
-              <div class="spec-value">PLACEHOLDER</div>
-            </div>
-          </div>
-
-          <div class="japanese-quote-container">
-            <div class="japanese-quote-bar"></div>
-            <div class="japanese-quote-text">"呼吸を覚えた 教わってないけど"</div>
-          </div>
-
-          <div class="section-header">
-            <h2 class="section-title">COLOUR PALETTE †</h2>
-          </div>
-          <div class="palette-grid">
-            <div class="swatch-card" onclick="COPYHEX('#E2E4F6')">
-              <div class="swatch-preview" style="background: #E2E4F6;"></div>
-              <div class="swatch-title">PORCELAIN SILVER</div>
-              <div class="swatch-code">#E2E4F6</div>
-            </div>
-            <div class="swatch-card" onclick="COPYHEX('#DFEAFE')">
-              <div class="swatch-preview" style="background: #DFEAFE;"></div>
-              <div class="swatch-title">SEASHELL BLUE</div>
-              <div class="swatch-code">#DFEAFE</div>
-            </div>
-            <div class="swatch-card" onclick="COPYHEX('#26242B')">
-              <div class="swatch-preview" style="background: #26242B;"></div>
-              <div class="swatch-title">OBSIDIAN VELVET</div>
-              <div class="swatch-code">#26242B</div>
-            </div>
-            <div class="swatch-card" onclick="COPYHEX('#F5F4FA')">
-              <div class="swatch-preview" style="background: #F5F4FA;"></div>
-              <div class="swatch-title">WHITE ROSE</div>
-              <div class="swatch-code">#F5F4FA</div>
-            </div>
-            <div class="swatch-card" onclick="COPYHEX('#B7B9C7')">
-              <div class="swatch-preview" style="background: #B7B9C7;"></div>
-              <div class="swatch-title">ANTIQUE SILVER</div>
-              <div class="swatch-code">#B7B9C7</div>
-            </div>
-          </div>
-
-          <div class="footer-links" style="justify-content: flex-start; margin-top: var(--SPACE-2);">
-            <a href="https://twitch.tv/thvrne" target="_blank">TWITCH</a>
-            <a href="https://x.com/thvrnet" target="_blank">TWITTER / X</a>
-            <a href="https://www.youtube.com/@thVrneT" target="_blank">YOUTUBE</a>
-            <a href="https://www.tiktok.com/@thvrnevt" target="_blank">TIKTOK</a>
-            <a href="https://www.instagram.com/thvrnevt/" target="_blank">INSTAGRAM</a>
-          </div>
         </div>
-      </section>
-    </div>
+      </div>
 
-    <div id="tab-models" class="tab-content">
-      <nav class="gallery-sub-nav">
-        <button class="gallery-sub-btn active" onclick="SWITCHMODELPANE('showcase-pane', this)">MODEL SHOWCASE</button>
-        <button class="gallery-sub-btn" onclick="SWITCHMODELPANE('refsheet-pane', this)">REFERENCE SHEET</button>
-      </nav>
-
-      <div id="showcase-pane" class="model-view-pane active">
+      <div id="tab-board" class="tab-content">
         <div class="section-header">
-          <h2 class="section-title">MODEL SHOWCASE</h2>
-          <div class="section-subtitle">Variations & outfits</div>
+          <h2 class="section-title">MESSAGE & CANVAS BOARD</h2>
+          <div class="section-subtitle">Leave a message or sketch</div>
+          <div class="admin-indicator" id="ADMININDICATOR">ADMIN MODE ACTIVE</div>
         </div>
 
-        <div class="model-interactive-layout">
-          <div class="model-thumbnails-col">
-            <button class="model-thumb-btn active" onclick="SWITCHACTIVEMODEL('main1.png', 'Default // Outfit', this)">
-              <img src="main1.png" alt="DEFAULT MODEL" onerror="HANDLEIMAGEERROR(this, 'DEFAULT')">
-            </button>
-            <button class="model-thumb-btn" onclick="SWITCHACTIVEMODEL('main2.png', 'Alt Outfit // Variation', this)">
-              <img src="main2.png" alt="ALT OUTFIT" onerror="HANDLEIMAGEERROR(this, 'ALT')">
-            </button>
-            <button class="model-thumb-btn" onclick="SWITCHACTIVEMODEL('chibi.png', 'Chibi // Style', this)">
-              <img src="chibi.png" alt="CHIBI MODEL" onerror="HANDLEIMAGEERROR(this, 'CHIBI')">
-            </button>
-            <button class="model-thumb-btn" onclick="SWITCHACTIVEMODEL('chibinoglasses.png', 'Chibi w/o Glasses // Style', this)">
-              <img src="chibinoglasses.png" alt="CHIBI W/O GLASSES" onerror="HANDLEIMAGEERROR(this, 'NO GLASSES')">
-            </button>
-            <button class="model-thumb-btn" onclick="SWITCHACTIVEMODEL('catthorne1.png', 'Cat Chibi // Style', this)">
-              <img src="catthorne1.png" alt="CAT CHIBI MODEL" onerror="HANDLEIMAGEERROR(this, 'CAT CHIBI')">
-            </button>
+        <div class="board-container">
+          <div class="drawing-tools">
+            <div class="canvas-wrapper">
+              <canvas id="drawingCanvas" width="400" height="400"></canvas>
+            </div>
+            <div class="tool-row">
+              <span class="tool-label">COLOR</span>
+              <input type="color" id="BRUSHCOLOR" value="#E2E4F6" style="background:none; border:none; cursor:pointer; height:24px; width:24px;">
+              <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="SETCOLOR('#E2E4F6')">SILVER</button>
+              <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="SETCOLOR('#DFEAFE')">BLUE</button>
+              <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="SETCOLOR('#000000')">ERASER</button>
+            </div>
+            <div class="tool-row">
+              <span class="tool-label">SIZE</span>
+              <input type="range" id="BRUSHSIZE" min="1" max="20" value="3" style="flex:1;">
+            </div>
+            <div class="tool-row">
+              <button class="btn" onclick="CLEARCANVAS()" style="width:100%;">CLEAR CANVAS</button>
+            </div>
+            <input type="text" id="POSTAUTHOR" class="input-field" placeholder="YOUR NAME / HANDLE (OPTIONAL)">
+            <textarea id="POSTTEXT" class="input-field" placeholder="WRITE A NOTE..."></textarea>
+            <button class="btn btn-primary" onclick="SUBMITPOST()">POST ENTRY</button>
           </div>
 
-          <div class="model-display-stage">
-            <img id="MAINMODELDISPLAY" src="main1.png" alt="SELECTED MODEL" class="active-model-img zoomable" onerror="HANDLEIMAGEERROR(this, 'ACTIVE MODEL')">
-            <div id="MAINMODELTAG" class="active-model-tag">Default // Outfit</div>
-          </div>
+          <div class="message-feed" id="MESSAGEFEED"></div>
         </div>
       </div>
-
-      <div id="refsheet-pane" class="model-view-pane">
-        <div class="section-header">
-          <h2 class="section-title">REFERENCE SHEET</h2>
-          <div class="section-subtitle">Character design & details</div>
-        </div>
-        <div class="refsheet-card">
-          <div class="refsheet-img-wrapper">
-            <img src="fullref.png" alt="THVRNE FULL REFERENCE SHEET" class="refsheet-img zoomable" onerror="HANDLEIMAGEERROR(this, 'REFERENCE SHEET')">
-          </div>
-          <div class="art-info">
-            <div class="art-artist">TRINITTOLLUENE</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-gallery" class="tab-content">
-      <nav class="gallery-sub-nav">
-        <button class="gallery-sub-btn active" onclick="SWITCHGALLERYPANE('fanart-pane', this)">ART GALLERY</button>
-        <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('memes-pane', this)">MEME GALLERY</button>
-        <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('vods-pane', this)">VOD BROADCASTS</button>
-      </nav>
-
-      <div id="fanart-pane" class="gallery-view-pane active">
-        <div class="section-header">
-          <h2 class="section-title">ART GALLERY</h2>
-          <div class="art-tag-banner" onclick="COPYTAG('#GardenofThorne')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span>Official Tag // #GardenofThorne</span>
-          </div>
-        </div>
-        <div class="fanart-grid">
-          <div class="art-card">
-            <div class="art-img-box">
-              <img src="satera723.png" alt="ARTWORK BY SATERA723" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY SATERA723')">
-            </div>
-            <div class="art-info">
-              <div class="art-artist">ラテ</div>
-              <div class="art-handle">@SATERA723</div>
-            </div>
-          </div>
-          <div class="art-card landscape">
-            <div class="art-img-box">
-              <img src="artwork1.png" alt="ARTWORK BY TSUYUCHA" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY TSUYUCHA')">
-            </div>
-            <div class="art-info">
-              <div class="art-artist">露茶◆TSUYUCHA</div>
-              <div class="art-handle">@TSUYUTYA</div>
-            </div>
-          </div>
-          <div class="art-card landscape">
-            <div class="art-img-box">
-              <img src="3900352-2.png" alt="ARTWORK BY KOUCHANTHREE" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY KOUCHANTHREE')">
-            </div>
-            <div class="art-info">
-              <div class="art-artist">こうちゃん</div>
-              <div class="art-handle">@KOUCHANTHREE</div>
-            </div>
-          </div>
-          <div class="art-card">
-            <div class="art-img-box">
-              <img src="tsuyutya.png" alt="ARTWORK BY TSUYUCHA" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY TSUYUCHA')">
-            </div>
-            <div class="art-info">
-              <div class="art-artist">露茶◆TSUYUCHA</div>
-              <div class="art-handle">@TSUYUTYA</div>
-            </div>
-          </div>
-          <div class="art-card">
-            <div class="art-img-box">
-              <img src="CD3BD835.jpg" alt="ARTWORK BY AXIUM" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY AXIUM')">
-            </div>
-            <div class="art-info">
-              <div class="art-artist">AXIUM</div>
-              <div class="art-handle">@ANGELOFTHEAXIS</div>
-            </div>
-          </div>
-          <div class="art-card">
-            <div class="art-img-box">
-              <img src="15coro_aaa.png" alt="ARTWORK BY NACHIKO" class="zoomable" onerror="HANDLEIMAGEERROR(this, 'ARTWORK BY NACHIKO')">
-            </div>
-            <div class="art-info">
-              <div class="art-artist">なちこ</div>
-              <div class="art-handle">@15CORO_AAA</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="memes-pane" class="gallery-view-pane">
-        <div class="section-header">
-          <h2 class="section-title">Meme</h2>
-          <div class="section-subtitle">Chaos archives</div>
-        </div>
-        <div class="meme-grid">
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="IMG_1931.png" alt="meme" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Who is she?</div>
-            <div class="meme-caption">@unknown</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/0is-shakespeare-really-dead1.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Is shakespeare really dead</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/83ef8ec3ec391d7a27db13cb3e812948.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Its me</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/actuallygenius.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Actually Genius</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/astreamertoocute.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Streamer too cute</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/b2g8k0.jpg" alt="Meme" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">POV ure pregnant men</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/bombvsthorne.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Bomb VS Thorne</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/dewedeserve.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Do we deserve</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/doessheknowv3.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Does she know</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/FIRE.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">fire</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/FREMINET.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">FREMINET</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/howdidsheknow.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">How did she know</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/imafffges11.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">free aura</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/IMG_9868.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">new meta</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/low-cortisol-thorne.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">low cortisol</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/realquestion.jpg" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Real Question</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/son.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Son</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/streamermentonpee.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Streamer mention pee</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/thegoat.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">The Goat</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/thornewasright.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">Thorne was right</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/whatdidsheseev4.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">What did she see?</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-            </div>
-        <div class="meme-card">
-          <div class="meme-img-box">
-            <img src="meme/whyshesocutechibi.png" alt="Meme by 416akane" class="zoomable" onerror="handleImageError(this, 'Meme Asset')">
-          </div>
-          <div class="meme-info">
-            <div class="meme-title">why is she so cute</div>
-            <div class="meme-caption">@416akane</div>
-          </div>
-        </div>
-      </div>
-      </div>
-
-      <div id="vods-pane" class="gallery-view-pane">
-        <div class="section-header">
-          <h2 class="section-title">EXPLORE BROADCASTS</h2>
-          <div class="section-subtitle">Archives & stream highlights</div>
-        </div>
-        <div class="vod-grid">
-          <a href="https://www.twitch.tv/videos/2907074504" target="_blank" class="vod-card">
-            <div class="vod-thumb">
-              <img src="vod1.png" alt="STREAM THUMBNAIL" onerror="HANDLEIMAGEERROR(this, 'STREAM VOD')">
-              <div class="vod-play-btn">
-                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </div>
-            </div>
-            <div class="vod-details">
-              <div class="vod-tag">Recent Stream</div>
-              <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
-              <p class="vod-desc">PEAK GAMEPLAY & CHAT INTERACTIONS</p>
-            </div>
-          </a>
-          <a href="https://x.com/BritishFilian/status/2116528371215524075" target="_blank" class="vod-card">
-            <div class="vod-thumb">
-              <img src="vod2.png" alt="STREAM THUMBNAIL" onerror="HANDLEIMAGEERROR(this, 'KARAOKE VOD')">
-              <div class="vod-play-btn">
-                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </div>
-            </div>
-            <div class="vod-details">
-              <div class="vod-tag">Highlight</div>
-              <h3 class="vod-title">KARAOKE HIGHLIGHTS</h3>
-              <p class="vod-desc">THVRNE SINGS "WHEN I'M GONE"</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-board" class="tab-content">
-      <div class="section-header">
-        <h2 class="section-title">MESSAGE & CANVAS BOARD</h2>
-        <div class="section-subtitle">Leave a message or sketch</div>
-        <div class="admin-indicator" id="ADMININDICATOR">ADMIN MODE ACTIVE</div>
-      </div>
-
-      <div class="board-container">
-        <div class="drawing-tools">
-          <div class="canvas-wrapper">
-            <canvas id="drawingCanvas" width="400" height="400"></canvas>
-          </div>
-          <div class="tool-row">
-            <span class="tool-label">COLOR</span>
-            <input type="color" id="BRUSHCOLOR" value="#E2E4F6" style="background:none; border:none; cursor:pointer; height:24px; width:24px;">
-            <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="SETCOLOR('#E2E4F6')">SILVER</button>
-            <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="SETCOLOR('#DFEAFE')">BLUE</button>
-            <button class="btn" style="padding: 2px 6px; font-size: 0.65rem;" onclick="SETCOLOR('#000000')">ERASER</button>
-          </div>
-          <div class="tool-row">
-            <span class="tool-label">SIZE</span>
-            <input type="range" id="BRUSHSIZE" min="1" max="20" value="3" style="flex:1;">
-          </div>
-          <div class="tool-row">
-            <button class="btn" onclick="CLEARCANVAS()" style="width:100%;">CLEAR CANVAS</button>
-          </div>
-          <input type="text" id="POSTAUTHOR" class="input-field" placeholder="YOUR NAME / HANDLE (OPTIONAL)">
-          <textarea id="POSTTEXT" class="input-field" placeholder="WRITE A NOTE..."></textarea>
-          <button class="btn btn-primary" onclick="SUBMITPOST()">POST ENTRY</button>
-        </div>
-
-        <div class="message-feed" id="MESSAGEFEED"></div>
-      </div>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <div class="lightbox" id="LIGHTBOX">
     <span class="lightbox-close" id="LIGHTBOX-CLOSE">&times;</span>
@@ -1603,7 +1629,10 @@
         btnElement.classList.add('active');
       }
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const VIEWPORT = document.getElementById('SCROLLABLEVIEWPORT');
+      if (VIEWPORT) {
+        VIEWPORT.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
     function SWITCHMODELPANE(paneId, btnElement) {
