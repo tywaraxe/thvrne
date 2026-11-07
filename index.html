@@ -193,6 +193,11 @@
       white-space: nowrap;
     }
 
+    /* Strikethrough style for THRONE easter egg */
+    .brand-title.is-throne {
+      text-decoration: line-through;
+    }
+
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -912,12 +917,19 @@
       }
       .split-left .mobile-brand-area {
         display: flex;
+        align-items: center;
+        text-align: center;
       }
 
-      /* Scale down title specifically for mobile to prevent overflow/cutting off */
       .mobile-brand-area .brand-title {
-        font-size: clamp(2rem, 12vw, 3.5rem);
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
         letter-spacing: 4px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .mobile-brand-area .status-badge {
+        margin: 0 auto;
       }
 
       .hero-img {
@@ -967,13 +979,41 @@
         width: 100% !important;
         height: auto !important;
       }
+      
       .palette-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--SPACE-2);
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
       }
+      .swatch-card {
+        padding: 2px;
+      }
+      .swatch-preview {
+        height: 24px;
+      }
+      .swatch-title {
+        font-size: 0.5rem;
+        letter-spacing: 0.5px;
+      }
+      .swatch-code {
+        font-size: 0.55rem;
+      }
+
       .specs-grid {
         grid-template-columns: 1fr;
         gap: var(--SPACE-2);
+      }
+
+      /* 確保手機版社群連結能正常顯示、置中且具備良好間距 */
+      .split-right .footer-links,
+      .footer-links {
+        display: flex !important;
+        justify-content: center !important;
+        flex-wrap: wrap;
+        gap: var(--SPACE-4);
+        margin-top: var(--SPACE-6);
+        margin-bottom: var(--SPACE-8);
+        font-size: 0.8rem;
+        letter-spacing: 1px;
       }
     }
 
@@ -989,9 +1029,6 @@
       }
       .vod-thumb, .vod-details {
         width: 100% !important;
-      }
-      .palette-grid {
-        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -1071,29 +1108,25 @@
         gap: var(--SPACE-4);
       }
       .model-thumbnails-col {
-        flex-direction: row;
-        justify-content: flex-start;
-        overflow-x: auto;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
         width: 100%;
-        padding-bottom: var(--SPACE-2);
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .model-thumbnails-col::-webkit-scrollbar {
-        display: none;
+        overflow-x: visible;
+        padding-bottom: 0;
       }
       .model-thumb-btn {
-        width: 72px;
-        height: 72px;
-        min-width: 72px;
-        flex-shrink: 0;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        min-width: 0;
       }
       .model-display-stage {
-        min-height: 480px;
+        min-height: 420px;
         width: 100%;
       }
       .active-model-img {
-        max-height: 460px;
+        max-height: 400px;
       }
     }
 
@@ -1587,6 +1620,7 @@
               <div class="vod-details">
                 <div class="vod-tag">Recent Stream</div>
                 <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
+                <p class="vod-desc">PEAK GAMEPLAY & CHAT INTERACTIONS</p>
               </div>
             </a>
             <a href="https://x.com/BritishFilian/status/2116528371215524075" target="_blank" class="vod-card">
@@ -1813,10 +1847,29 @@
           nameIndex = (nameIndex + 1) % 2;
         }
       }
+
       const elDesktop = document.getElementById('TOGGLENAMETITLE');
       const elMobile = document.getElementById('TOGGLENAMETITLE_MOBILE');
-      if (elDesktop) elDesktop.textContent = NAMES[nameIndex];
-      if (elMobile) elMobile.textContent = NAMES[nameIndex];
+      
+      const currentName = NAMES[nameIndex];
+      
+      if (elDesktop) {
+        elDesktop.textContent = currentName;
+        if (currentName === "THRONE") {
+          elDesktop.classList.add('is-throne');
+        } else {
+          elDesktop.classList.remove('is-throne');
+        }
+      }
+
+      if (elMobile) {
+        elMobile.textContent = currentName;
+        if (currentName === "THRONE") {
+          elMobile.classList.add('is-throne');
+        } else {
+          elMobile.classList.remove('is-throne');
+        }
+      }
     }
 
     const TITLEELEMENT = document.getElementById('TOGGLENAMETITLE');
