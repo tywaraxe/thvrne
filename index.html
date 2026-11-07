@@ -193,7 +193,6 @@
       white-space: nowrap;
     }
 
-    /* Strikethrough style for THRONE easter egg */
     .brand-title.is-throne {
       text-decoration: line-through;
     }
@@ -937,20 +936,32 @@
         max-height: 60vh;
         margin-top: var(--SPACE-2);
       }
+      
+      /* 修復手機版頂部導覽列顯示問題：改為正常展開與合適的間距 */
       .top-header-row {
-        flex-direction: column;
-        align-items: flex-start;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
         gap: var(--SPACE-2);
-      }
-      .main-nav-strip {
-        gap: var(--SPACE-4);
         width: 100%;
+      }
+      
+      .main-nav-strip {
+        display: flex !important;
+        gap: var(--SPACE-3);
+        width: auto;
         overflow-x: auto;
         padding-bottom: var(--SPACE-1);
         -webkit-overflow-scrolling: touch;
       }
       .pill-btn {
         flex-shrink: 0;
+        font-size: 0.75rem;
+      }
+      
+      .header-copy {
+        font-size: 0.65rem;
       }
       
       .fanart-grid, .meme-grid {
@@ -1003,7 +1014,6 @@
         gap: var(--SPACE-2);
       }
 
-      /* 確保手機版社群連結能正常顯示、置中且具備良好間距 */
       .split-right .footer-links,
       .footer-links {
         display: flex !important;
@@ -1202,6 +1212,7 @@
             </div>
 
             <div class="section-header">
+              <h2 class="section-title">SPECIFICATIONS ✦</h2>
               <div class="section-subtitle">a delicate ball-jointed doll brought to 'life'</div>
             </div>
             <div class="specs-grid">
@@ -1328,7 +1339,7 @@
         <nav class="gallery-sub-nav">
           <button class="gallery-sub-btn active" onclick="SWITCHGALLERYPANE('fanart-pane', this)">ART GALLERY</button>
           <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('memes-pane', this)">MEME GALLERY</button>
-          <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('vods-pane', this)">VOD</button>
+          <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('vods-pane', this)">VOD BROADCASTS</button>
         </nav>
 
         <div id="fanart-pane" class="gallery-view-pane active">
