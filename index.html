@@ -46,7 +46,7 @@
       --TEXT-LG: 1.25rem;
       --TEXT-XL: 1.75rem;
       --TEXT-2XL: 2.5rem;
-      --TEXT-HERO: clamp(3.8rem, 8vw, 6.5rem);
+      --TEXT-HERO: clamp(2.8rem, 7vw, 6.5rem);
     }
 
     * {
@@ -69,6 +69,8 @@
       line-height: 1.6;
       overflow-x: hidden;
       text-align: left;
+      width: 100%;
+      max-width: 100vw;
     }
 
     a {
@@ -81,6 +83,7 @@
       margin: 0 auto;
       padding: var(--SPACE-4) var(--SPACE-8);
       position: relative;
+      width: 100%;
     }
 
     .top-header-row {
@@ -92,6 +95,7 @@
       margin-bottom: var(--SPACE-4);
       position: relative;
       z-index: 10;
+      width: 100%;
     }
 
     .main-nav-strip {
@@ -126,6 +130,7 @@
       align-items: flex-end;
       width: 100%;
       padding-top: var(--SPACE-12);
+      min-width: 0;
     }
 
     .hero-img {
@@ -152,6 +157,8 @@
       justify-content: center;
       gap: var(--SPACE-4);
       padding: 0;
+      min-width: 0;
+      width: 100%;
     }
 
     .brand-header-area {
@@ -159,18 +166,22 @@
       flex-direction: column;
       gap: var(--SPACE-2);
       margin-bottom: 0;
+      width: 100%;
+      min-width: 0;
     }
 
     .brand-title {
       font-family: var(--FONT-HEADING);
       font-size: var(--TEXT-HERO);
       font-weight: 800;
-      letter-spacing: 8px;
+      letter-spacing: clamp(2px, 0.5vw, 8px);
       text-transform: uppercase;
       color: var(--ACCENT-LAVENDER);
       cursor: pointer;
       user-select: none;
       line-height: 1.1;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
     .status-badge {
@@ -184,6 +195,8 @@
       transition: color 0.3s ease;
       cursor: pointer;
       width: fit-content;
+      max-width: 100%;
+      word-break: break-word;
     }
 
     .status-badge:hover {
@@ -195,6 +208,7 @@
       height: 8px;
       background-color: #6b7280;
       border-radius: 50%;
+      flex-shrink: 0;
       transition: background-color 0.4s ease, box-shadow 0.4s ease;
     }
 
@@ -243,6 +257,7 @@
     .tab-content {
       display: none;
       animation: fadeIn 0.4s ease forwards;
+      width: 100%;
     }
 
     .tab-content.active {
@@ -256,14 +271,16 @@
 
     .specs-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--SPACE-3);
+      width: 100%;
     }
 
     .spec-card {
       border-left: 2px solid var(--BORDER-SUBTLE);
       padding-left: var(--SPACE-4);
       text-align: left;
+      min-width: 0;
     }
 
     .spec-label {
@@ -273,6 +290,7 @@
       color: var(--ACCENT-VIOLET);
       margin-bottom: 2px;
       text-transform: none;
+      word-break: break-word;
     }
 
     .spec-value {
@@ -280,12 +298,15 @@
       font-size: var(--TEXT-SM);
       letter-spacing: 1px;
       color: var(--ACCENT-LAVENDER);
+      word-break: break-word;
     }
 
     .section-header {
       text-align: left;
       margin-bottom: var(--SPACE-2);
       margin-top: var(--SPACE-2);
+      width: 100%;
+      min-width: 0;
     }
 
     .section-title {
@@ -294,6 +315,7 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--ACCENT-ROSE);
+      word-break: break-word;
     }
 
     .section-subtitle {
@@ -303,23 +325,26 @@
       color: var(--ACCENT-VIOLET);
       margin-top: 2px;
       text-transform: none;
+      word-break: break-word;
     }
 
     .palette-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: var(--SPACE-3);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--SPACE-2);
+      width: 100%;
     }
 
     .swatch-card {
       cursor: pointer;
       border: none;
-      padding: var(--SPACE-2);
+      padding: var(--SPACE-1);
       border-radius: 4px;
       transition: all 0.3s ease;
       text-align: left;
       background: transparent;
       box-shadow: none !important;
+      min-width: 0;
     }
 
     .swatch-card:hover {
@@ -328,16 +353,17 @@
     }
 
     .swatch-preview {
-      height: 36px;
-      margin-bottom: var(--SPACE-1);
+      height: 28px;
+      margin-bottom: 2px;
       border-radius: 2px;
       box-shadow: none !important;
+      width: 100%;
     }
 
     .swatch-title {
       font-family: var(--FONT-HEADING);
-      font-size: 0.65rem;
-      letter-spacing: 1px;
+      font-size: 0.5rem;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
       white-space: nowrap;
       overflow: hidden;
@@ -346,8 +372,12 @@
 
     .swatch-code {
       font-family: var(--FONT-SANS);
-      font-size: var(--TEXT-XS);
+      font-size: 0.55rem;
       color: var(--ACCENT-SILVER);
+      word-break: break-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .gallery-sub-nav {
@@ -355,6 +385,7 @@
       gap: var(--SPACE-6);
       margin-bottom: var(--SPACE-6);
       flex-wrap: wrap;
+      width: 100%;
     }
 
     .gallery-sub-btn {
@@ -384,6 +415,7 @@
     .gallery-view-pane, .model-view-pane {
       display: none;
       animation: fadeIn 0.3s ease forwards;
+      width: 100%;
     }
 
     .gallery-view-pane.active, .model-view-pane.active {
@@ -397,6 +429,7 @@
       border: 1px solid var(--BORDER-SUBTLE);
       padding: var(--SPACE-4);
       border-radius: 4px;
+      width: 100%;
     }
 
     .refsheet-img-wrapper {
@@ -419,17 +452,19 @@
 
     .fanart-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-auto-flow: dense;
       gap: var(--SPACE-6);
       align-items: start;
       margin-bottom: var(--SPACE-12);
+      width: 100%;
     }
 
     .art-card {
       border: 1px solid var(--BORDER-SUBTLE);
       padding: var(--SPACE-4);
       border-radius: 4px;
+      min-width: 0;
     }
 
     .art-card.landscape {
@@ -448,12 +483,15 @@
       font-size: var(--TEXT-SM);
       letter-spacing: 1.5px;
       text-transform: none;
+      max-width: 100%;
+      word-break: break-word;
     }
 
     .art-tag-banner svg {
       width: 14px;
       height: 14px;
       stroke: currentColor;
+      flex-shrink: 0;
     }
 
     .art-img-box {
@@ -474,32 +512,37 @@
 
     .art-info {
       padding-top: var(--SPACE-1);
+      min-width: 0;
     }
 
     .art-artist {
       font-family: var(--FONT-HEADING);
       font-size: var(--TEXT-XS);
       letter-spacing: 1px;
+      word-break: break-word;
     }
 
     .art-handle {
       font-family: var(--FONT-SANS);
       font-size: var(--TEXT-XS);
       color: var(--ACCENT-SILVER);
+      word-break: break-word;
     }
 
     .meme-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: var(--SPACE-6);
       align-items: start;
       margin-bottom: var(--SPACE-12);
+      width: 100%;
     }
 
     .meme-card {
       border: 1px solid var(--BORDER-SUBTLE);
       padding: var(--SPACE-4);
       border-radius: 4px;
+      min-width: 0;
     }
 
     .meme-img-box img {
@@ -515,19 +558,22 @@
       font-family: var(--FONT-HEADING);
       font-size: var(--TEXT-XS);
       letter-spacing: 1px;
+      word-break: break-word;
     }
 
     .meme-caption {
       font-family: var(--FONT-SANS);
       font-size: var(--TEXT-XS);
       color: var(--ACCENT-SILVER);
+      word-break: break-word;
     }
 
     .vod-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--SPACE-6);
       margin-bottom: var(--SPACE-12);
+      width: 100%;
     }
 
     .vod-card {
@@ -539,6 +585,7 @@
       text-decoration: none;
       color: inherit;
       text-align: left;
+      min-width: 0;
     }
 
     .vod-thumb {
@@ -550,6 +597,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .vod-thumb img {
@@ -581,6 +629,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      min-width: 0;
     }
 
     .vod-tag {
@@ -590,6 +639,7 @@
       color: var(--ACCENT-VIOLET);
       margin-bottom: 2px;
       text-transform: none;
+      word-break: break-word;
     }
 
     .vod-title {
@@ -597,12 +647,72 @@
       font-size: var(--TEXT-XS);
       letter-spacing: 1px;
       margin-bottom: 2px;
+      word-break: break-word;
     }
 
     .vod-desc {
       font-family: var(--FONT-SANS);
       font-size: var(--TEXT-XS);
       color: var(--ACCENT-SILVER);
+      word-break: break-word;
+    }
+
+    .twitch-stream-embed {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      margin-bottom: var(--SPACE-12);
+      display: none;
+    }
+
+    .twitch-stream-embed.active {
+      display: block;
+    }
+
+    .twitch-frame-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      margin-top: var(--SPACE-3);
+    }
+
+    .twitch-frame-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .twitch-community-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--SPACE-6);
+      margin-bottom: var(--SPACE-12);
+      width: 100%;
+    }
+
+    .stat-display-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--SPACE-1);
+    }
+
+    .stat-display-label {
+      font-family: var(--FONT-HEADING);
+      font-size: var(--TEXT-SM);
+      color: var(--ACCENT-SILVER);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .stat-display-val {
+      font-family: var(--FONT-HEADING);
+      font-size: var(--TEXT-2XL);
+      color: var(--ACCENT-LAVENDER);
+      letter-spacing: 1px;
+      line-height: 1;
     }
 
     .board-container {
@@ -611,6 +721,8 @@
       grid-template-columns: 320px 1fr;
       gap: var(--SPACE-6);
       align-items: start;
+      width: 100%;
+      min-width: 0;
     }
 
     .drawing-tools {
@@ -621,6 +733,8 @@
       flex-direction: column;
       gap: var(--SPACE-3);
       border-radius: 4px;
+      min-width: 0;
+      width: 100%;
     }
 
     .canvas-wrapper {
@@ -644,6 +758,7 @@
       align-items: center;
       gap: var(--SPACE-2);
       flex-wrap: wrap;
+      width: 100%;
     }
 
     .tool-label {
@@ -664,6 +779,7 @@
       font-size: var(--TEXT-XS);
       outline: none;
       border-radius: 2px;
+      min-width: 0;
     }
 
     .input-field:focus {
@@ -707,6 +823,8 @@
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: var(--SPACE-4);
       align-items: start;
+      width: 100%;
+      min-width: 0;
     }
 
     .feed-card {
@@ -718,6 +836,8 @@
       gap: var(--SPACE-2);
       position: relative;
       border-radius: 4px;
+      min-width: 0;
+      word-break: break-word;
     }
 
     .feed-card.text-only {
@@ -737,6 +857,7 @@
       font-size: var(--TEXT-XS);
       color: var(--ACCENT-LAVENDER);
       letter-spacing: 1px;
+      word-break: break-word;
     }
 
     .feed-text {
@@ -751,6 +872,7 @@
       font-size: 0.65rem;
       color: rgba(226, 228, 246, 0.4);
       margin-top: auto;
+      word-break: break-word;
     }
 
     .admin-delete-btn {
@@ -793,12 +915,13 @@
 
     .footer-links {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       flex-wrap: wrap;
       gap: var(--SPACE-6);
       font-family: var(--FONT-SANS);
       font-size: var(--TEXT-SM);
       letter-spacing: 2px;
+      width: 100%;
     }
 
     .lightbox {
@@ -863,6 +986,9 @@
     }
 
     @media (max-width: 992px) {
+      .container {
+        padding: var(--SPACE-3) var(--SPACE-4);
+      }
       .overview-layout {
         display: flex;
         flex-direction: column;
@@ -870,16 +996,69 @@
       }
       .split-left, .split-right {
         width: 100%;
-        padding-top: var(--SPACE-8);
+        padding-top: var(--SPACE-4);
       }
       .hero-img {
         transform: none;
-        max-height: 70vh;
-        margin-top: var(--SPACE-12);
+        max-height: 60vh;
+        margin-top: var(--SPACE-4);
       }
       .top-header-row {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
+      }
+      .main-nav-strip {
+        justify-content: center;
+      }
+      .header-copy {
+        text-align: center;
+      }
+      .fanart-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .art-card.landscape {
+        grid-column: span 2;
+      }
+      .meme-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .vod-grid {
+        grid-template-columns: 1fr;
+      }
+      .twitch-community-stats {
+        grid-template-columns: 1fr;
+        gap: var(--SPACE-4);
+      }
+      .board-container {
+        grid-template-columns: 1fr;
+      }
+      .footer-links {
+        justify-content: center !important;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .fanart-grid {
+        grid-template-columns: 1fr;
+      }
+      .art-card.landscape {
+        grid-column: span 1;
+      }
+      .meme-grid {
+        grid-template-columns: 1fr;
+      }
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: var(--SPACE-3) var(--SPACE-3);
+      }
+      .footer-links {
+        gap: var(--SPACE-3);
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        justify-content: center !important;
       }
     }
 
@@ -889,6 +1068,8 @@
       gap: var(--SPACE-8);
       align-items: center;
       margin-bottom: var(--SPACE-12);
+      width: 100%;
+      min-width: 0;
     }
 
     .model-thumbnails-col {
@@ -977,11 +1158,11 @@
         flex-shrink: 0;
       }
       .model-display-stage {
-        min-height: 480px;
+        min-height: 400px;
         width: 100%;
       }
       .active-model-img {
-        max-height: 460px;
+        max-height: 380px;
       }
     }
 
@@ -994,6 +1175,7 @@
       color: var(--ACCENT-VIOLET);
       font-size: var(--TEXT-SM);
       text-transform: none;
+      word-break: break-word;
     }
 
     .japanese-quote-container {
@@ -1001,12 +1183,15 @@
       align-items: center;
       gap: var(--SPACE-3);
       margin-top: var(--SPACE-4);
+      max-width: 100%;
+      min-width: 0;
     }
 
     .japanese-quote-bar {
       width: 2px;
       height: 32px;
       background-color: var(--BORDER-SUBTLE);
+      flex-shrink: 0;
     }
 
     .japanese-quote-text {
@@ -1015,9 +1200,9 @@
       font-size: var(--TEXT-BASE);
       color: var(--ACCENT-VIOLET);
       letter-spacing: 0.5px;
+      word-break: break-word;
     }
   </style>
-  <link rel="icon" type="image/png" href="icon.png">
 </head>
 <body>
 
@@ -1026,7 +1211,7 @@
       <nav class="main-nav-strip">
         <button class="pill-btn active" onclick="SWITCHMAINTAB('overview', this)">OVERVIEW</button>
         <button class="pill-btn" onclick="SWITCHMAINTAB('models', this)">MODELS</button>
-        <button class="pill-btn" onclick="SWITCHMAINTAB('gallery', this)">GALLERY</button>
+        <button class="pill-btn" onclick="SWITCHMAINTAB('gallery', this)">MEDIA</button>
         <button class="pill-btn" onclick="SWITCHMAINTAB('board', this)">BOARD</button>
       </nav>
       <div class="header-copy">&copy; 2026 THVRNE. ALL RIGHTS RESERVED.</div>
@@ -1048,7 +1233,6 @@
           </div>
 
           <div class="section-header">
-            <h2 class="section-title">SPECIFICATIONS ✦</h2>
             <div class="section-subtitle">a delicate ball-jointed doll brought to 'life'</div>
           </div>
           <div class="specs-grid">
@@ -1081,32 +1265,32 @@
           <div class="palette-grid">
             <div class="swatch-card" onclick="COPYHEX('#E2E4F6')">
               <div class="swatch-preview" style="background: #E2E4F6;"></div>
-              <div class="swatch-title">PORCELAIN SILVER</div>
+              <div class="swatch-title">PORCELAIN</div>
               <div class="swatch-code">#E2E4F6</div>
             </div>
             <div class="swatch-card" onclick="COPYHEX('#DFEAFE')">
               <div class="swatch-preview" style="background: #DFEAFE;"></div>
-              <div class="swatch-title">SEASHELL BLUE</div>
+              <div class="swatch-title">SEASHELL</div>
               <div class="swatch-code">#DFEAFE</div>
             </div>
             <div class="swatch-card" onclick="COPYHEX('#26242B')">
               <div class="swatch-preview" style="background: #26242B;"></div>
-              <div class="swatch-title">OBSIDIAN VELVET</div>
+              <div class="swatch-title">OBSIDIAN</div>
               <div class="swatch-code">#26242B</div>
             </div>
             <div class="swatch-card" onclick="COPYHEX('#F5F4FA')">
               <div class="swatch-preview" style="background: #F5F4FA;"></div>
-              <div class="swatch-title">WHITE ROSE</div>
+              <div class="swatch-title">ROSE</div>
               <div class="swatch-code">#F5F4FA</div>
             </div>
             <div class="swatch-card" onclick="COPYHEX('#B7B9C7')">
               <div class="swatch-preview" style="background: #B7B9C7;"></div>
-              <div class="swatch-title">ANTIQUE SILVER</div>
+              <div class="swatch-title">ANTIQUE</div>
               <div class="swatch-code">#B7B9C7</div>
             </div>
           </div>
 
-          <div class="footer-links" style="justify-content: flex-start; margin-top: var(--SPACE-2);">
+          <div class="footer-links" style="margin-top: var(--SPACE-2);">
             <a href="https://twitch.tv/thvrne" target="_blank">TWITCH</a>
             <a href="https://x.com/thvrnet" target="_blank">TWITTER / X</a>
             <a href="https://www.youtube.com/@thVrneT" target="_blank">YOUTUBE</a>
@@ -1175,7 +1359,7 @@
       <nav class="gallery-sub-nav">
         <button class="gallery-sub-btn active" onclick="SWITCHGALLERYPANE('fanart-pane', this)">ART GALLERY</button>
         <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('memes-pane', this)">MEME GALLERY</button>
-        <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('vods-pane', this)">VOD BROADCASTS</button>
+        <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('vods-pane', this)">VODS & TWITCH</button>
       </nav>
 
       <div id="fanart-pane" class="gallery-view-pane active">
@@ -1452,6 +1636,28 @@
       </div>
 
       <div id="vods-pane" class="gallery-view-pane">
+        <div class="twitch-stream-embed active" id="TWITCHEMBEDCONTAINER">
+          <div class="twitch-frame-wrapper">
+            <iframe id="TWITCHIFRAME" src="https://player.twitch.tv/?channel=thvrne&parent=localhost&parent=127.0.0.1" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">COMMUNITY RECOGNITION †</h2>
+          <div class="section-subtitle">Live follower & subscriber stats</div>
+        </div>
+
+        <div class="twitch-community-stats">
+          <div class="stat-display-item">
+            <div class="stat-display-label">TOTAL FOLLOWERS</div>
+            <div class="stat-display-val" id="TOTALFOLLOWERSCOUNT">--</div>
+          </div>
+          <div class="stat-display-item">
+            <div class="stat-display-label">SUBSCRIBERS</div>
+            <div class="stat-display-val" id="TOTALSUBSCRIBERSCOUNT">--</div>
+          </div>
+        </div>
+
         <div class="section-header">
           <h2 class="section-title">EXPLORE BROADCASTS</h2>
           <div class="section-subtitle">Archives & stream highlights</div>
@@ -1535,9 +1741,55 @@
     let toastTimeout;
 
     const TWITCH_USERNAME = "thvrne";
-    const TWITCH_CLIENT_ID = "YOUR_TWITCH_CLIENT_ID";
+    const TWITCH_CLIENT_ID = "2g0imb2rrgm0vfpzh13fcr1xa4jj6r";
     const TWITCH_OAUTH_TOKEN = "YOUR_TWITCH_OAUTH_TOKEN";
     let isCurrentlyLive = false;
+
+    async function FETCHTWITCHCOMMUNITYDATA() {
+      if (TWITCH_CLIENT_ID === "YOUR_TWITCH_CLIENT_ID" || TWITCH_OAUTH_TOKEN === "YOUR_TWITCH_OAUTH_TOKEN") {
+        return;
+      }
+
+      try {
+        const USER_RES = await fetch(`https://api.twitch.tv/helix/users?login=${TWITCH_USERNAME}`, {
+          headers: {
+            'Client-ID': TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${TWITCH_OAUTH_TOKEN}`
+          }
+        });
+        const USER_DATA = await USER_RES.json();
+        if (!USER_DATA.data || USER_DATA.data.length === 0) return;
+        const BROADCASTER_ID = USER_DATA.data[0].id;
+
+        const FOLLOW_RES = await fetch(`https://api.twitch.tv/helix/channels/followers?broadcaster_id=${BROADCASTER_ID}&first=1`, {
+          headers: {
+            'Client-ID': TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${TWITCH_OAUTH_TOKEN}`
+          }
+        });
+        const FOLLOW_DATA = await FOLLOW_RES.json();
+
+        if (FOLLOW_DATA.total !== undefined) {
+          document.getElementById('TOTALFOLLOWERSCOUNT').textContent = FOLLOW_DATA.total.toLocaleString();
+        }
+
+        const SUB_RES = await fetch(`https://api.twitch.tv/helix/subscriptions?broadcaster_id=${BROADCASTER_ID}&first=1`, {
+          headers: {
+            'Client-ID': TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${TWITCH_OAUTH_TOKEN}`
+          }
+        });
+        const SUB_DATA = await SUB_RES.json();
+
+        if (SUB_DATA.total !== undefined) {
+          document.getElementById('TOTALSUBSCRIBERSCOUNT').textContent = SUB_DATA.total.toLocaleString();
+        } else if (SUB_DATA.data) {
+          document.getElementById('TOTALSUBSCRIBERSCOUNT').textContent = SUB_DATA.data.length.toLocaleString();
+        }
+      } catch (err) {
+        console.error("FAILED TO FETCH TWITCH COMMUNITY DATA:", err);
+      }
+    }
 
     async function CHECKTWITCHSTATUS() {
       const DOT = document.getElementById('LIVEDOT');
@@ -1559,7 +1811,7 @@
         if (DATA.data && DATA.data.length > 0) {
           const STREAMINFO = DATA.data[0];
           DOT.className = 'status-dot live';
-          STATUSTEXT.textContent = `LIVE NOW: ${STREAMINFO.title.toUpperCase()}`;
+          STATUSTEXT.textContent = `LIVE: ${STREAMINFO.title.toUpperCase()} (${STREAMINFO.viewer_count} VIEWERS)`;
 
           if (!isCurrentlyLive) {
             isCurrentlyLive = true;
@@ -1576,6 +1828,7 @@
     }
 
     CHECKTWITCHSTATUS();
+    FETCHTWITCHCOMMUNITYDATA();
     setInterval(CHECKTWITCHSTATUS, 60000);
 
     function SWITCHMAINTAB(tabId, btnElement) {
