@@ -47,7 +47,6 @@
       --text-xl: 1.75rem;
       --text-2xl: 2.5rem;
       --text-hero: clamp(2.2rem, 6vw, 3.8rem);
-      
     }
 
     * {
@@ -123,6 +122,7 @@
       color: var(--accent-silver);
       transition: color 0.3s ease;
       margin-bottom: var(--space-8);
+      cursor: pointer;
     }
 
     .status-badge:hover {
@@ -130,10 +130,27 @@
     }
 
     .status-dot {
-      width: 6px;
-      height: 6px;
-      background-color: #22c55e;
+      width: 8px;
+      height: 8px;
+      background-color: #6b7280;
       border-radius: 50%;
+      transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .status-dot.live {
+      background-color: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+      animation: pulse-green 2s infinite;
+    }
+
+    .status-dot.offline {
+      background-color: #ef4444;
+    }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
     .main-nav-strip {
@@ -275,7 +292,7 @@
 
     .swatch-card {
       cursor: pointer;
-      border: 1px solid var(--border-subtle);
+      border: none;
       padding: var(--space-3);
       border-radius: 4px;
       transition: all 0.3s ease;
@@ -283,7 +300,6 @@
     }
 
     .swatch-card:hover {
-      border-color: var(--accent-violet);
       transform: translateY(-2px);
     }
 
@@ -518,10 +534,6 @@
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-6);
       margin-bottom: var(--space-16);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
     }
 
     .active-model-img {
@@ -774,6 +786,7 @@
     body.admin-mode .admin-delete-btn {
       display: block;
     }
+
     @keyframes paneFadeIn {
       from { 
         opacity: 0; 
@@ -966,6 +979,7 @@
         grid-template-columns: 1fr;
       }
     }
+    
     .palette-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1038,6 +1052,7 @@
         align-items: flex-start;
       }
     }
+
     .model-interactive-layout {
       display: grid;
       grid-template-columns: 90px 1fr;
@@ -1058,7 +1073,7 @@
       height: 75px;
       border-radius: 50%;
       border: 2px solid var(--border-subtle);
-      background: var(--accent-obsidian);
+      background: transparent;
       overflow: hidden;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -1183,9 +1198,9 @@
   <main class="container">
     <div class="brand-header">
       <h1 class="brand-title" id="toggleNameTitle" title="Click to toggle or click 10 times for easter egg">THVRNE</h1>
-      <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge">
-        <span class="status-dot"></span>
-        TWITCH.TV/THVRNE
+      <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge" id="twitchStatusBadge">
+        <span class="status-dot" id="liveDot"></span>
+        <span id="liveStatusText">TWITCH.TV/THVRNE</span>
       </a>
 
       <nav class="main-nav-strip">
@@ -1695,6 +1710,50 @@
     const ADMIN_PASSWORD = "thorneadminpass";
     let toastTimeout;
 
+    const TWITCH_USERNAME = "thvrne";
+    const TWITCH_CLIENT_ID = "YOUR_TWITCH_CLIENT_ID";
+    const TWITCH_OAUTH_TOKEN = "YOUR_TWITCH_OAUTH_TOKEN";
+    let isCurrentlyLive = false;
+
+    async function checkTwitchStatus() {
+      const dot = document.getElementById('liveDot');
+      const statusText = document.getElementById('liveStatusText');
+
+      if (TWITCH_CLIENT_ID === "YOUR_TWITCH_CLIENT_ID" || TWITCH_OAUTH_TOKEN === "YOUR_TWITCH_OAUTH_TOKEN") {
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://api.twitch.tv/helix/streams?user_login=${TWITCH_USERNAME}`, {
+          headers: {
+            'Client-ID': TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${TWITCH_OAUTH_TOKEN}`
+          }
+        });
+        const data = await response.json();
+
+        if (data.data && data.data.length > 0) {
+          const streamInfo = data.data[0];
+          dot.className = 'status-dot live';
+          statusText.textContent = `LIVE NOW: ${streamInfo.title.toUpperCase()}`;
+
+          if (!isCurrentlyLive) {
+            isCurrentlyLive = true;
+            showToast(`🔴 THVRNE a pornit stream-ul: ${streamInfo.title}`);
+          }
+        } else {
+          dot.className = 'status-dot offline';
+          statusText.textContent = `TWITCH.TV/THVRNE (OFFLINE)`;
+          isCurrentlyLive = false;
+        }
+      } catch (err) {
+        console.error("Failed to check Twitch status:", err);
+      }
+    }
+
+    checkTwitchStatus();
+    setInterval(checkTwitchStatus, 60000);
+
     function switchMainTab(tabId, btnElement) {
       document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
@@ -1774,7 +1833,7 @@
       clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
-      }, 2000);
+      }, 3000);
     }
 
     function copyHex(hex) {
