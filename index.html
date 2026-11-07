@@ -132,10 +132,11 @@
       position: relative;
       z-index: 2;
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: flex-end;
+      align-items: flex-start;
       width: 100%;
-      padding-top: var(--SPACE-12);
+      padding-top: var(--SPACE-4);
     }
 
     .hero-img {
@@ -147,7 +148,7 @@
       transition: opacity 0.3s ease;
       transform: scale(1.12);
       pointer-events: auto;
-      margin-top: var(--SPACE-8);
+      margin-top: var(--SPACE-4);
     }
 
     .hero-img:hover {
@@ -171,16 +172,25 @@
       margin-bottom: 0;
     }
 
+    .split-right .brand-header-area {
+      display: flex;
+    }
+    
+    .split-left .mobile-brand-area {
+      display: none;
+    }
+
     .brand-title {
       font-family: var(--FONT-HEADING);
       font-size: var(--TEXT-HERO);
       font-weight: 800;
-      letter-spacing: 8px;
+      letter-spacing: 6px;
       text-transform: uppercase;
       color: var(--ACCENT-LAVENDER);
       cursor: pointer;
       user-select: none;
       line-height: 1.1;
+      white-space: nowrap;
     }
 
     .status-badge {
@@ -206,6 +216,7 @@
       background-color: #6b7280;
       border-radius: 50%;
       transition: background-color 0.4s ease, box-shadow 0.4s ease;
+      flex-shrink: 0;
     }
 
     .status-dot.live {
@@ -304,6 +315,7 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--ACCENT-ROSE);
+      word-break: break-word;
     }
 
     .section-subtitle {
@@ -364,7 +376,14 @@
       display: flex;
       gap: var(--SPACE-6);
       margin-bottom: var(--SPACE-6);
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .gallery-sub-nav::-webkit-scrollbar {
+      display: none;
     }
 
     .gallery-sub-btn {
@@ -379,6 +398,8 @@
       border-bottom: 2px solid transparent;
       border-radius: 0;
       transition: all 0.3s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .gallery-sub-btn:hover {
@@ -872,7 +893,10 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 736px) {
+      .container {
+        padding: var(--SPACE-3) var(--SPACE-4);
+      }
       .overview-layout {
         display: flex;
         flex-direction: column;
@@ -880,26 +904,76 @@
       }
       .split-left, .split-right {
         width: 100%;
-        padding-top: var(--SPACE-8);
+        padding-top: var(--SPACE-2);
       }
+      
+      .split-right .brand-header-area {
+        display: none;
+      }
+      .split-left .mobile-brand-area {
+        display: flex;
+      }
+
+      /* Scale down title specifically for mobile to prevent overflow/cutting off */
+      .mobile-brand-area .brand-title {
+        font-size: clamp(2rem, 12vw, 3.5rem);
+        letter-spacing: 4px;
+      }
+
       .hero-img {
         transform: none;
-        max-height: 70vh;
-        margin-top: var(--SPACE-12);
+        max-height: 60vh;
+        margin-top: var(--SPACE-2);
       }
       .top-header-row {
         flex-direction: column;
         align-items: flex-start;
+        gap: var(--SPACE-2);
+      }
+      .main-nav-strip {
+        gap: var(--SPACE-4);
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: var(--SPACE-1);
+        -webkit-overflow-scrolling: touch;
+      }
+      .pill-btn {
+        flex-shrink: 0;
       }
       
       .fanart-grid, .meme-grid {
         grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--SPACE-3) !important;
       }
       .art-card.landscape {
         grid-column: span 2;
       }
       .vod-grid {
         grid-template-columns: 1fr !important;
+        gap: var(--SPACE-4) !important;
+      }
+      .board-container {
+        grid-template-columns: 1fr !important;
+        gap: var(--SPACE-4) !important;
+      }
+      .drawing-tools {
+        width: 100%;
+      }
+      .canvas-wrapper {
+        max-width: 100%;
+        width: 100%;
+      }
+      #drawingCanvas {
+        width: 100% !important;
+        height: auto !important;
+      }
+      .palette-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--SPACE-2);
+      }
+      .specs-grid {
+        grid-template-columns: 1fr;
+        gap: var(--SPACE-2);
       }
     }
 
@@ -915,6 +989,9 @@
       }
       .vod-thumb, .vod-details {
         width: 100% !important;
+      }
+      .palette-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -988,7 +1065,7 @@
       animation: fadeIn 0.3s ease forwards;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 736px) {
       .model-interactive-layout {
         grid-template-columns: 1fr;
         gap: var(--SPACE-4);
@@ -1042,6 +1119,7 @@
       width: 2px;
       height: 32px;
       background-color: var(--BORDER-SUBTLE);
+      flex-shrink: 0;
     }
 
     .japanese-quote-text {
@@ -1071,6 +1149,13 @@
       <div id="tab-overview" class="tab-content active">
         <section class="overview-layout">
           <div class="split-left">
+            <div class="brand-header-area mobile-brand-area" style="margin-bottom: var(--SPACE-4); width: 100%;">
+              <h1 class="brand-title" id="TOGGLENAMETITLE_MOBILE" title="CLICK TO TOGGLE OR CLICK 10 TIMES FOR EASTER EGG" onclick="TRIGGERNAMECHANGE()">THVRNE</h1>
+              <a href="https://twitch.tv/thvrne" target="_blank" class="status-badge">
+                <span class="status-dot LIVEDOT_REF"></span>
+                <span class="LIVESTATUSTEXT_REF">TWITCH.TV/THVRNE</span>
+              </a>
+            </div>
             <img src="main.png" alt="THVRNE FULL MODEL" class="hero-img zoomable" onerror="HANDLEIMAGEERROR(this, 'THVRNE FULL MODEL')">
           </div>
 
@@ -1084,7 +1169,6 @@
             </div>
 
             <div class="section-header">
-              <h2 class="section-title">SPECIFICATIONS ✦</h2>
               <div class="section-subtitle">a delicate ball-jointed doll brought to 'life'</div>
             </div>
             <div class="specs-grid">
@@ -1211,7 +1295,7 @@
         <nav class="gallery-sub-nav">
           <button class="gallery-sub-btn active" onclick="SWITCHGALLERYPANE('fanart-pane', this)">ART GALLERY</button>
           <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('memes-pane', this)">MEME GALLERY</button>
-          <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('vods-pane', this)">VOD BROADCASTS</button>
+          <button class="gallery-sub-btn" onclick="SWITCHGALLERYPANE('vods-pane', this)">VOD</button>
         </nav>
 
         <div id="fanart-pane" class="gallery-view-pane active">
@@ -1503,7 +1587,6 @@
               <div class="vod-details">
                 <div class="vod-tag">Recent Stream</div>
                 <h3 class="vod-title">[PEAK] STRAIGHT UP PEAKIN IT</h3>
-                <p class="vod-desc">PEAK GAMEPLAY & CHAT INTERACTIONS</p>
               </div>
             </a>
             <a href="https://x.com/BritishFilian/status/2116528371215524075" target="_blank" class="vod-card">
@@ -1577,8 +1660,8 @@
     let isCurrentlyLive = false;
 
     async function CHECKTWITCHSTATUS() {
-      const DOT = document.getElementById('LIVEDOT');
-      const STATUSTEXT = document.getElementById('LIVESTATUSTEXT');
+      const DOTS = document.querySelectorAll('.LIVEDOT_REF, #LIVEDOT');
+      const STATUSTEXTS = document.querySelectorAll('.LIVESTATUSTEXT_REF, #LIVESTATUSTEXT');
 
       if (TWITCH_CLIENT_ID === "YOUR_TWITCH_CLIENT_ID" || TWITCH_OAUTH_TOKEN === "YOUR_TWITCH_OAUTH_TOKEN") {
         return;
@@ -1595,16 +1678,16 @@
 
         if (DATA.data && DATA.data.length > 0) {
           const STREAMINFO = DATA.data[0];
-          DOT.className = 'status-dot live';
-          STATUSTEXT.textContent = `LIVE NOW: ${STREAMINFO.title.toUpperCase()}`;
+          DOTS.forEach(d => d.className = 'status-dot live');
+          STATUSTEXTS.forEach(t => t.textContent = `LIVE NOW: ${STREAMINFO.title.toUpperCase()}`);
 
           if (!isCurrentlyLive) {
             isCurrentlyLive = true;
             SHOWTOAST(`🔴 THVRNE IS LIVE: ${STREAMINFO.title}`);
           }
         } else {
-          DOT.className = 'status-dot offline';
-          STATUSTEXT.textContent = `TWITCH.TV/THVRNE (OFFLINE)`;
+          DOTS.forEach(d => d.className = 'status-dot offline');
+          STATUSTEXTS.forEach(t => t.textContent = `TWITCH.TV/THVRNE (OFFLINE)`);
           isCurrentlyLive = false;
         }
       } catch (err) {
@@ -1710,32 +1793,35 @@
       SHOWTOAST(`COPIED HASHTAG ${tag} TO YOUR CLIPBOARD.`);
     }
 
-    const TITLEELEMENT = document.getElementById('TOGGLENAMETITLE');
     const NAMES = ["THVRNE", "THORNE", "THRONE"];
     let nameIndex = 0;
     let clickCount = 0;
 
-    if (TITLEELEMENT) {
-      TITLEELEMENT.addEventListener('click', () => {
-        clickCount++;
-        if (nameIndex === 2) {
-          if (clickCount >= 10) {
-            nameIndex = 0;
-            TITLEELEMENT.textContent = NAMES[nameIndex];
-            clickCount = 0;
-          }
-        } else {
-          if (clickCount >= 10) {
-            nameIndex = 2;
-            TITLEELEMENT.textContent = NAMES[nameIndex];
-            SHOWTOAST("EASTER EGG UNLOCKED: THRONE!");
-            clickCount = 0;
-          } else {
-            nameIndex = (nameIndex + 1) % 2;
-            TITLEELEMENT.textContent = NAMES[nameIndex];
-          }
+    function TRIGGERNAMECHANGE() {
+      clickCount++;
+      if (nameIndex === 2) {
+        if (clickCount >= 10) {
+          nameIndex = 0;
+          clickCount = 0;
         }
-      });
+      } else {
+        if (clickCount >= 10) {
+          nameIndex = 2;
+          SHOWTOAST("EASTER EGG UNLOCKED: THRONE!");
+          clickCount = 0;
+        } else {
+          nameIndex = (nameIndex + 1) % 2;
+        }
+      }
+      const elDesktop = document.getElementById('TOGGLENAMETITLE');
+      const elMobile = document.getElementById('TOGGLENAMETITLE_MOBILE');
+      if (elDesktop) elDesktop.textContent = NAMES[nameIndex];
+      if (elMobile) elMobile.textContent = NAMES[nameIndex];
+    }
+
+    const TITLEELEMENT = document.getElementById('TOGGLENAMETITLE');
+    if (TITLEELEMENT) {
+      TITLEELEMENT.addEventListener('click', TRIGGERNAMECHANGE);
     }
 
     const LIGHTBOX = document.getElementById('LIGHTBOX');
@@ -1906,7 +1992,7 @@
         return;
       }
 
-      const TIMESTAMP = new Date().toLocaleDateString('EN-US', { month: 'SHORT', day: 'NUMERIC', hour: '2-DIGIT', minute: '2-DIGIT' }).toUpperCase();
+      const TIMESTAMP = new Date().toLocaleDateString('EN-US', { month: 'SHORT', day: 'NUMERIC', hour: '2-digit', minute: '2-digit' }).toUpperCase();
 
       const { error } = await DB
         .from('board_posts')
