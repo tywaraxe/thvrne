@@ -1993,7 +1993,13 @@
 
     const SUPABASE_URL = "https://yxzvruzxeynfgpctfrue.supabase.co";
     const SUPABASE_KEY = "sb_publishable_7Jj7AE89seaxQLiyw08uCQ_id8C6FqZ";
-    const DB = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const DB = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true
+  }
+});
 
     let boardPosts = [];
 
@@ -2056,7 +2062,7 @@
         return;
       }
 
-      const TIMESTAMP = new Date().toLocaleDateString('EN-US', { month: 'SHORT', day: 'NUMERIC', hour: '2-digit', minute: '2-digit' }).toUpperCase();
+      const TIMESTAMP = new Date().toLocaleDateString('EN-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).toUpperCase();
 
       const { error } = await DB
         .from('board_posts')
