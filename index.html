@@ -57,18 +57,29 @@
 
     body {
       background-color: var(--BG-DARK);
-      background-image: 
-        radial-gradient(circle at center, rgba(10, 9, 13, 0.75) 0%, rgba(10, 9, 13, 0.95) 85%),
-        url('background.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
       color: var(--ACCENT-ROSE);
       font-family: var(--FONT-SANS);
       line-height: 1.6;
       overflow-x: hidden;
       text-align: left;
+    }
+
+    /* Background container that acts like a fixed background without the mobile scroll glitch */
+    .fixed-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100dvh; /* Uses dynamic viewport height so it adapts to different phones automatically */
+      z-index: -99;
+      background-color: var(--BG-DARK);
+      background-image: 
+        radial-gradient(circle at center, rgba(10, 9, 13, 0.75) 0%, rgba(10, 9, 13, 0.95) 85%),
+        url('background.png');
+      background-size: cover;     /* Automatically scales to cover any phone screen size */
+      background-position: center; /* Keeps the center framed nicely */
+      background-repeat: no-repeat;
+      pointer-events: none;       /* Ensures it never blocks clicks */
     }
 
     a {
@@ -1020,7 +1031,7 @@
   <link rel="icon" type="image/png" href="icon.png">
 </head>
 <body>
-
+<div class="fixed-bg"></div>
   <main class="container">
     <div class="top-header-row">
       <nav class="main-nav-strip">
